@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
+import PostDraw from './components/PostDraw';
+import Lobby from './components/Lobby';
 import LandingPage from './components/LandingPage';
 import Settings from './components/Settings';
 import {me} from './store'
@@ -42,6 +44,8 @@ class Routes extends Component {
           <Route path = '/landing/:roomId' component = {LandingPage}/>
           <Route exact path ='/settings' component = {Settings}/>
           <Route path='/canvas' component={Main} />
+          <Route path='/lobby' component={Lobby} />
+          <Route path='/postdraw' component={PostDraw} />
         </Switch>
       </div>
     );
