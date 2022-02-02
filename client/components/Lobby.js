@@ -7,6 +7,10 @@ const dummyUsers = [
   {nickname: "quynh", avatar: "https://ih1.redbubble.net/image.399793925.2011/flat,128x,075,f-pad,128x128,f8f8f8.u4.jpg"},
 ]
 
+const dummySettings = [
+  {name: "normal", image: "http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/artist-palette.png", description: "loren ipsum"},
+  {name: "timed", image: "http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/artist-palette.png", description: "loren ipsum"},
+]
 class Lobby extends Component{
   constructor(){
     super()
@@ -14,6 +18,7 @@ class Lobby extends Component{
 
   render(){
     let users = dummyUsers;
+    let settings = dummySettings
 
     return(
       <div id="lobby-room">
@@ -25,7 +30,12 @@ class Lobby extends Component{
             </div>)
           }) }
         </div>
-        <div className="draw-session-settings">container for session goes here</div>
+        <div className="draw-session-settings">{settings.map((setting) => {
+          return(<div>
+            <img src={setting.image} width="200px" />
+            <p>{setting.name}</p>
+          </div>)
+        })}</div>
         <div className="session-link">url session link goes here</div>
       </div>
     )
