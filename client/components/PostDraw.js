@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class PostDraw extends Component {
   constructor(){
@@ -13,7 +14,9 @@ class PostDraw extends Component {
           <p>canvas goes here</p>
         </div>
         <button>okay i like it, picasso</button>
-        <button>Start a New Draw Session</button>
+        <Link to ='/'>
+          <button>Start a New Draw Session</button>
+        </Link>
       </div>
     )
   }

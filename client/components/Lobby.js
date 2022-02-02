@@ -30,6 +30,7 @@ class Lobby extends Component{
             </div>)
           }) }
         </div>
+
         <div className="draw-session-settings">{settings.map((setting) => {
           return(<div>
             <img src={setting.image} width="200px" />
