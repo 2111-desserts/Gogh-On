@@ -1,4 +1,5 @@
 @import "lobby.css";
+@import 'chat-style.css';
 
 body {
   font-family: sans-serif;
