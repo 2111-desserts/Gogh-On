@@ -25,8 +25,8 @@ const App = () => {
 
   return (
     <div>
-      {/* <Navbar /> */}
-      {/* <Routes /> */}
+      <Navbar />
+      <Routes />
       {!showChat ? (
         <div>
           {/* <form id="form"> */}
