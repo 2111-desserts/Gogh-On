@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react';
-import { Stage, Layer, Line, Text } from 'react-konva';
+import React, { useEffect, useRef, useState } from 'react';
+import { Stage, Layer, Line } from 'react-konva';
+import { CirclePicker } from 'react-color';
 
 const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
+  const [selectedColor, setColor] = useState('#f44336');
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {
@@ -37,6 +39,11 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  //color change
+  const handleColorChange = (color) => {
+    setColor(color.hex);
+  };
+
   return (
     <div>
       <Stage
@@ -48,12 +55,11 @@ const DrawingCanvas = () => {
         style={{ border: '1px solid black' }}
       >
         <Layer>
-          {/* <Text text='Just start drawing' x={5} y={30} /> */}
           {lines.map((line, i) => (
             <Line
               key={i}
               points={line.points}
-              stroke='#df4b26'
+              stroke={selectedColor}
               strokeWidth={5}
               tension={0.5}
               lineCap='round'
@@ -73,6 +79,7 @@ const DrawingCanvas = () => {
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
       </select>
+      <CirclePicker color={selectedColor} onChange={handleColorChange} />
     </div>
   );
 };
