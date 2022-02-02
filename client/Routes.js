@@ -41,6 +41,7 @@ class Routes extends Component {
           <Route exact path ='/landing' component = {LandingPage}/>
           <Route path = '/landing/:roomId' component = {LandingPage}/>
           <Route exact path ='/settings' component = {Settings}/>
+          <Route path='/canvas' component={Main} />
         </Switch>
       </div>
     );
