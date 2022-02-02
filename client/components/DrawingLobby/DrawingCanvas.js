@@ -39,11 +39,6 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
-  //color change
-  const handleColorChange = (color) => {
-    setColor(color.hex);
-  };
-
   return (
     <div>
       <Stage
@@ -79,7 +74,12 @@ const DrawingCanvas = () => {
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
       </select>
-      <CirclePicker color={selectedColor} onChange={handleColorChange} />
+      <CirclePicker
+        color={selectedColor}
+        onChange={(e) => {
+          setColor(e.hex);
+        }}
+      />
     </div>
   );
 };
