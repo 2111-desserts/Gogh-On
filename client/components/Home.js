@@ -4,23 +4,21 @@ import {connect} from 'react-redux'
 /**
  * COMPONENT
  */
-export const Home = props => {
-  const {username} = props
-
+export const Home = () => {
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>Welcome to the Drawing Website!</h3>
     </div>
   )
 }
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    username: state.auth.username
-  }
-}
+// /**
+//  * CONTAINER
+//  */
+// const mapState = state => {
+//   return {
+//     username: state.auth.username
+//   }
+// }
 
-export default connect(mapState)(Home)
+export default connect(null)(Home)
