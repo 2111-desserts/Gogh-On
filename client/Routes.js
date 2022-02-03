@@ -10,6 +10,7 @@ import Settings from './components/Settings';
 import { me } from './store';
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
 import Chat from './components/Chat/Chat';
+import About from './components/About';
 
 /**
  * COMPONENT
@@ -46,6 +47,7 @@ class Routes extends Component {
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />
+          <Route path='/about' component={About} />
         </Switch>
       </div>
     );

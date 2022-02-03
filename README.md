@@ -1,26 +1,39 @@
-# FS-App-Template
+GH CAPSTONE PROJECT: TEAM DESSERTS! 
+Aata Amanda Ellie Quynh
 
-## Setup
+ A collaborative drawing space where users can use an online drawing board and express their creativity - together!
 
-To use this as boilerplate, you'll need to take the following steps:
 
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+  Create 1 thing with up to 4 friends, where you're all the 'artist'. art-US-ts. (app name subject to discussion/change)
+ 
+ *UNDER DEVELOPMENT*.
+ Fun game modes to help get past creative blocks and/or just play with friends TO COME!
 
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
+ *
+Deployed link:
+https://artusts.herokuapp.com/chat
+*
 
-```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
 
-## Customize
+*
+Deploy immediately by pushing your branch to Heroku:
 
-Now that you've got the code, follow these steps to get acclimated:
+git push heroku main
+*
 
+
+
+
+
+
+
+
+
+
+
+*
+LEAVING the rest here (for now)... in case we wind up creating a db for some ungodly reason:
+*
 * Update project name and description in `package.json`
 * `npm install`
 * Create two postgres databases (`MY_APP_NAME` should match the `name`
@@ -74,4 +87,3 @@ Database Setup
       collaborator on the app.
 
 
-Now, you should be deployed!

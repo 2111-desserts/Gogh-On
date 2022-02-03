@@ -1,19 +1,41 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
+<<<<<<< HEAD
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
+=======
+import {Howl} from 'howler';
+import { Link } from 'react-router-dom';
+
+const audioClip = {
+  soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
+}
+>>>>>>> main
 
 const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
+  // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
+
+  //sound: paintstroke
+  const soundPlay = (src) =>{
+    const soundBrushStroke = new Howl({
+      src,
+      html5: true,
+      volume: 0.09
+     })
+    soundBrushStroke.play();
+  }
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {
     isDrawing.current = true;
+    // soundBrushStroke = true;
+    soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
     setLines([
       ...lines,
@@ -49,6 +71,13 @@ const DrawingCanvas = () => {
   const eraser = () => {
     setColor('#fff');
   };
+  var stageRef = useRef()
+
+  const getDataURI = () => {
+    const uri = stageRef.current.toDataURL();
+    console.log("this is the data url ", uri)
+    localStorage.setItem('dataURI', uri)
+  }
 
   return (
     <div className='drawingLobby'>
@@ -59,6 +88,7 @@ const DrawingCanvas = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         style={{ border: '1px solid black' }}
+        ref={stageRef}
       >
         <Layer>
           {lines.map((line, i, strokeColor) => (
@@ -97,6 +127,18 @@ const DrawingCanvas = () => {
           <Pencil />
         </button>
       </span>
+      <Link to='/postdraw'>
+        <button onClick={getDataURI}>
+          end session
+        </button>
+      </Link>
+      <CirclePicker
+        color={selectedColor}
+        onChange={(e) => {
+          setColor(e.hex);
+          console.log(e);
+        }}
+      />
     </div>
   );
 };
