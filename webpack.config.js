@@ -15,10 +15,6 @@ module.exports = {
           presets: ['@babel/preset-react'],
         },
       },
-      {
-        test: /\.svg$/,
-        use: ['@svgr/webpack'],
-      },
     ],
   },
 };
