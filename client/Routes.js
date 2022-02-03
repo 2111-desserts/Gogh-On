@@ -7,11 +7,9 @@ import PostDraw from './components/PostDraw';
 import Lobby from './components/Lobby';
 import LandingPage from './components/LandingPage';
 import Settings from './components/Settings';
-import {me} from './store'
+import { me } from './store';
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
-import Main from './components/DrawingLobby/Main';
-import Chat from './components/Chat/Chat'
-
+import Chat from './components/Chat/Chat';
 
 /**
  * COMPONENT
@@ -40,11 +38,11 @@ class Routes extends Component {
           </Switch>
         )} */}
         <Switch>
-          <Route exact path ='/' component={Home}/>
-          <Route exact path ='/landing' component = {LandingPage}/>
-          <Route path = '/landing/:roomId' component = {LandingPage}/>
-          <Route exact path ='/settings' component = {Settings}/>
-          <Route path='/canvas' component={Main} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/landing' component={LandingPage} />
+          <Route path='/landing/:roomId' component={LandingPage} />
+          <Route exact path='/settings' component={Settings} />
+          <Route path='/canvas' component={DrawingCanvas} />
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />

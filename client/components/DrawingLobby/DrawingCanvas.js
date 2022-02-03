@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
+import Eraser from '../../../public/icons/eraser.svg';
+import Pencil from '../../../public/icons/pencil.svg';
 
 const DrawingCanvas = () => {
   //states
@@ -43,8 +45,13 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  //eraser
+  const eraser = () => {
+    setColor('#fff');
+  };
+
   return (
-    <div>
+    <div className='drawingLobby'>
       <Stage
         width={1600}
         height={600}
@@ -62,14 +69,11 @@ const DrawingCanvas = () => {
               strokeWidth={5}
               tension={0.5}
               lineCap='round'
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
             />
           ))}
         </Layer>
       </Stage>
-      <select
+      {/* <select
         value={tool}
         onChange={(e) => {
           setTool(e.target.value);
@@ -77,8 +81,8 @@ const DrawingCanvas = () => {
       >
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
-      </select>
-      <div className='toolbox'>
+      </select> */}
+      <span className='toolbox'>
         <CirclePicker
           color={selectedColor}
           onChange={(e) => {
@@ -86,7 +90,13 @@ const DrawingCanvas = () => {
             console.log(e);
           }}
         />
-      </div>
+        <button type='button' className='toolbox-btn' onClick={eraser}>
+          <Eraser />
+        </button>
+        <button type='button' className='toolbox-btn'>
+          <Pencil />
+        </button>
+      </span>
     </div>
   );
 };

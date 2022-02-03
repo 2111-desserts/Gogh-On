@@ -11,7 +11,6 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      {console.log('test')}
       <Routes />
     </div>
   );

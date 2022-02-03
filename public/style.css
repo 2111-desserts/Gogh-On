@@ -1,5 +1,6 @@
-@import "lobby.css";
+@import 'lobby.css';
 @import 'chat-style.css';
+@import 'toolbox.css';
 
 body {
   font-family: sans-serif;
@@ -9,9 +10,9 @@ a {
   text-decoration: none;
 }
 
-label {
+/* label {
   display: block;
-}
+} */
 
 nav a {
   display: inline-block;
