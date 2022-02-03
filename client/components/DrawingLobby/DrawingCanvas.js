@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
-<<<<<<< HEAD
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
-=======
 import {Howl} from 'howler';
 import { Link } from 'react-router-dom';
 
 const audioClip = {
   soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
 }
->>>>>>> main
 
 const DrawingCanvas = () => {
   //states
