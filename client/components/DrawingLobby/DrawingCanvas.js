@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
+import { Link } from 'react-router-dom';
+
 
 const DrawingCanvas = () => {
   //states
@@ -43,6 +45,14 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  var stageRef = useRef()
+
+  const getDataURI = () => {
+    const uri = stageRef.current.toDataURL();
+    console.log("this is the data url ", uri)
+    localStorage.setItem('dataURI', uri)
+  }
+
   return (
     <div>
       <Stage
@@ -52,6 +62,7 @@ const DrawingCanvas = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         style={{ border: '1px solid black' }}
+        ref={stageRef}
       >
         <Layer>
           {lines.map((line, i, strokeColor) => (
@@ -78,6 +89,11 @@ const DrawingCanvas = () => {
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
       </select>
+      <Link to='/postdraw'>
+        <button onClick={getDataURI}>
+          end session
+        </button>
+      </Link>
       <CirclePicker
         color={selectedColor}
         onChange={(e) => {
