@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import {Howl} from 'howler';
+
+const audioClip = {
+  sound: 'https://algorithmic-8ball.neocities.org/team_dessert/button_START.mp3'
+}
+
 
 const dummyUsers = [
   {nickname: "ataa", avatar: "https://ih1.redbubble.net/image.399793925.2011/flat,128x,075,f-pad,128x128,f8f8f8.u4.jpg"},
@@ -14,7 +20,25 @@ const dummySettings = [
 class Lobby extends Component{
   constructor(){
     super()
+    this.state ={
+      sound: false
+    }
+    this.handleClick = this.handleClick.bind(this)
   }
+
+  soundPlay(src){
+    const sound = new Howl({
+      src,
+      html5: true
+    })
+    sound.play();
+  }
+
+  handleClick(){
+    this.setState.sound = true;
+    this.soundPlay(audioClip.sound);
+    }
+
 
   render(){
     let users = dummyUsers;
@@ -37,7 +61,7 @@ class Lobby extends Component{
             <p>{setting.name}</p>
           </div>)
         })}</div>
-        <div className="session-link">url session link goes here</div>
+        <button className="session-link" type='button' onClick={() => this.handleClick()}>url session link goes here</button>
       </div>
     )
   }
