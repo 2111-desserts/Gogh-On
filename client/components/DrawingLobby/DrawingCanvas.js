@@ -2,6 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
 
+function downloadURI(uri, name) {
+  var link = document.createElement('a');
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  // delete link;
+}
+
 const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
@@ -44,6 +54,7 @@ const DrawingCanvas = () => {
   const handleExportClick = () => {
     const uri = stageRef.current.toDataURL();
     console.log("this is the data url ", uri)
+    downloadURI(uri, 'test.png')
   }
 
   return (
