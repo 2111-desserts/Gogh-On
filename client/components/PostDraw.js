@@ -1,9 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+function downloadURI(uri, name) {
+  var link = document.createElement('a');
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  // delete link;
+}
+
 class PostDraw extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
+  }
+
+  saveImage(){
+    const exportedURI = window.localStorage.dataURI;
+    downloadURI(exportedURI, 'another_test.png')
   }
 
   render(){
@@ -11,9 +26,9 @@ class PostDraw extends Component {
       <div id="post-draw-container">
         <h2>Thanks For Drawing!</h2>
         <div className="final-image">
-          <p>canvas goes here</p>
+          <img src={window.localStorage.dataURI} />
         </div>
-        <button>okay i like it, picasso</button>
+        <button onClick={this.saveImage}>okay i like it, picasso</button>
         <Link to ='/'>
           <button>Start a New Draw Session</button>
         </Link>

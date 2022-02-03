@@ -1,16 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
+import { Link } from 'react-router-dom';
 
-function downloadURI(uri, name) {
-  var link = document.createElement('a');
-  link.download = name;
-  link.href = uri;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  // delete link;
-}
 
 const DrawingCanvas = () => {
   //states
@@ -51,10 +43,10 @@ const DrawingCanvas = () => {
 
   var stageRef = useRef()
 
-  const handleExportClick = () => {
+  const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
     console.log("this is the data url ", uri)
-    downloadURI(uri, 'test.png')
+    localStorage.setItem('dataURI', uri)
   }
 
   return (
@@ -93,9 +85,11 @@ const DrawingCanvas = () => {
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
       </select>
-      <button onClick={handleExportClick}>
-        end drawing session
-      </button>
+      <Link to='/postdraw'>
+        <button onClick={getDataURI}>
+          end session
+        </button>
+      </Link>
       <CirclePicker
         color={selectedColor}
         onChange={(e) => {
