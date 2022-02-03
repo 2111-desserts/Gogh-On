@@ -4,8 +4,6 @@ import PropTypes from 'prop-types'
 //^to define the types of data we expect for our props, we’ll want to install the prop-types library.
 //^ I installed: npm install --save prop-types
 import Message from './Message'
-// import './Chat.css'
-
 
 class MessageList extends Component {
   static propTypes = {
