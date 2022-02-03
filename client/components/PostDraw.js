@@ -24,7 +24,7 @@ class PostDraw extends Component {
   render(){
     return(
       <div id="post-draw-container">
-        <h2>Thanks For Drawing!</h2>
+        <h2>Thanks for Drawing!</h2>
         <div className="final-image">
           <img src={window.localStorage.dataURI} />
         </div>
