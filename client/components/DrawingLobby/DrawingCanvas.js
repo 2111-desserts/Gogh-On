@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
+import Eraser from '../../../public/icons/eraser.svg';
+import Pencil from '../../../public/icons/pencil.svg';
 import {Howl} from 'howler';
 import { Link } from 'react-router-dom';
 
@@ -62,6 +64,10 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  //eraser
+  const eraser = () => {
+    setColor('#fff');
+  };
   var stageRef = useRef()
 
   const getDataURI = () => {
@@ -71,7 +77,7 @@ const DrawingCanvas = () => {
   }
 
   return (
-    <div>
+    <div className='drawingLobby'>
       <Stage
         width={1600}
         height={600}
@@ -90,14 +96,11 @@ const DrawingCanvas = () => {
               strokeWidth={5}
               tension={0.5}
               lineCap='round'
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
             />
           ))}
         </Layer>
       </Stage>
-      <select
+      {/* <select
         value={tool}
         onChange={(e) => {
           setTool(e.target.value);
@@ -105,7 +108,22 @@ const DrawingCanvas = () => {
       >
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
-      </select>
+      </select> */}
+      <span className='toolbox'>
+        <CirclePicker
+          color={selectedColor}
+          onChange={(e) => {
+            setColor(e.hex);
+            console.log(e);
+          }}
+        />
+        <button type='button' className='toolbox-btn' onClick={eraser}>
+          <Eraser />
+        </button>
+        <button type='button' className='toolbox-btn'>
+          <Pencil />
+        </button>
+      </span>
       <Link to='/postdraw'>
         <button onClick={getDataURI}>
           end session

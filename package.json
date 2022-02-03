@@ -32,6 +32,7 @@
 		"@babel/core": "^7.12.10",
 		"@babel/preset-react": "^7.12.10",
 		"@babel/register": "^7.12.10",
+		"@svgr/webpack": "^6.2.1",
 		"axios": "^0.21.1",
 		"babel-loader": "^8.2.2",
 		"esm": "^3.2.25",
