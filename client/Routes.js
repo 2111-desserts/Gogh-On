@@ -11,6 +11,7 @@ import {me} from './store'
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
 import Main from './components/DrawingLobby/Main';
 import Chat from './components/Chat/Chat'
+import About from './components/About';
 
 
 /**
@@ -48,6 +49,7 @@ class Routes extends Component {
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />
+          <Route path='/about' component={About} />
         </Switch>
       </div>
     );

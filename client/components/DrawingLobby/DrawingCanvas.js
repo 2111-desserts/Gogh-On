@@ -1,19 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
+import {Howl} from 'howler';
 import { Link } from 'react-router-dom';
 
+const audioClip = {
+  soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
+}
 
 const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
+  // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
+
+  //sound: paintstroke
+  const soundPlay = (src) =>{
+    const soundBrushStroke = new Howl({
+      src,
+      html5: true,
+      volume: 0.09
+     })
+    soundBrushStroke.play();
+  }
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {
     isDrawing.current = true;
+    // soundBrushStroke = true;
+    soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
     setLines([
       ...lines,
