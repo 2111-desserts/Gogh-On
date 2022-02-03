@@ -39,6 +39,13 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  var stageRef = useRef()
+
+  const handleExportClick = () => {
+    const uri = stageRef.current.toDataURL();
+    console.log("this is the data url ", uri)
+  }
+
   return (
     <div>
       <Stage
@@ -48,6 +55,7 @@ const DrawingCanvas = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         style={{ border: '1px solid black' }}
+        ref={stageRef}
       >
         <Layer>
           {lines.map((line, i) => (
@@ -74,6 +82,9 @@ const DrawingCanvas = () => {
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
       </select>
+      <button onClick={handleExportClick}>
+        end drawing session
+      </button>
       <CirclePicker
         color={selectedColor}
         onChange={(e) => {
