@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import MessageForm from './MessageForm'
 import MessageList from './MessageList'
-// import './Chat.css'
+import socket from 'socket.io-client';
+
+const clientSocket = socket(window.location.origin);
 
 class Chat extends Component {
   constructor(props) {
@@ -11,11 +13,6 @@ class Chat extends Component {
     }
   }
 
-  // handleChannelSelect = id =>{
-  //   this.socket.emit('channel-join', id, ack =>{
-
-  //   })
-  // }
   handleNewMessage = (text) => {
     this.setState({
       messages: [...this.state.messages, { me: true, author: "Me", body: text }],

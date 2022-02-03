@@ -10,6 +10,7 @@ import Settings from './components/Settings';
 import {me} from './store'
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
 import Main from './components/DrawingLobby/Main';
+import Chat from './components/Chat/Chat'
 
 
 /**
@@ -44,6 +45,7 @@ class Routes extends Component {
           <Route path = '/landing/:roomId' component = {LandingPage}/>
           <Route exact path ='/settings' component = {Settings}/>
           <Route path='/canvas' component={Main} />
+          <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />
         </Switch>

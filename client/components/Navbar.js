@@ -13,6 +13,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         <Link to='/landing'>landing</Link>
         <Link to='/settings'>settings</Link>
         <Link to='/canvas'>canvas</Link>
+        <Link to ='/chat'>chat</Link>
       </div>
     </nav>
     <hr />
