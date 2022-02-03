@@ -78,13 +78,15 @@ const DrawingCanvas = () => {
         <option value='pen'>Pen</option>
         <option value='eraser'>Eraser</option>
       </select>
-      <CirclePicker
-        color={selectedColor}
-        onChange={(e) => {
-          setColor(e.hex);
-          console.log(e);
-        }}
-      />
+      <div className='toolbox'>
+        <CirclePicker
+          color={selectedColor}
+          onChange={(e) => {
+            setColor(e.hex);
+            console.log(e);
+          }}
+        />
+      </div>
     </div>
   );
 };
