@@ -10,10 +10,8 @@ serverSocket.on('connection', (socket) => {
 	console.log(`Connection from client ${socket.id}`);
 	socket.on('join-room',(roomId) =>{
 		socket.join(roomId)
+		//socket.emit('new-user', roomId)
 		console.log(`sucessfully joined room `, roomId)
-	})
-	socket.on('backend-test', (message) =>{
-		console.log(message)
 	})
 	socket.on('send-message', (message, sendingUser) => {
 		socket.broadcast.emit('receive-message', message, sendingUser);

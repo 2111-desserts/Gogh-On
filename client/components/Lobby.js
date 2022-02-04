@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Howl} from 'howler';
 import Chat from './Chat/Chat'
+import socket from '../socket'
 
 const audioClip = {
   sound: 'https://algorithmic-8ball.neocities.org/team_dessert/button_START.mp3'
@@ -27,6 +28,12 @@ class Lobby extends Component{
     this.handleClick = this.handleClick.bind(this)
   }
 
+  componentDidMount(){
+    socket.on('new-user', (roomId) =>{
+      console.log(`New user has joined room ${roomId}`)
+    })
+  }
+
   soundPlay(src){
     const sound = new Howl({
       src,
@@ -38,7 +45,7 @@ class Lobby extends Component{
   handleClick(){
     const roomId = window.localStorage.getItem('roomId')
     //ATM it's written to adjust to localhost site hosting rather than heroku
-    navigator.clipboard.writeText("localhost:8080/landing/"+roomId)
+    navigator.clipboard.writeText("localhost:8080/?"+roomId)
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
     }

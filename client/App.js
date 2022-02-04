@@ -1,11 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Routes from './Routes';
-import Chat from './components/Chat/Chat';
-import socket from 'socket.io-client';
-import { useState } from 'react';
-
-const clientSocket = socket(window.location.origin);
 
 const App = () => {
   return (
