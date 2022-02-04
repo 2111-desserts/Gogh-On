@@ -15,6 +15,10 @@ serverSocket.on('connection', (socket) => {
 	socket.on('backend-test', (message) =>{
 		console.log(message)
 	})
+	socket.on('is-drawing', (line, sendingUser) => {
+		socket.broadcast.emit('receive-drawing', line, sendingUser);
+	});
+
 	socket.on('send-message', (message, sendingUser) => {
 		socket.broadcast.emit('receive-message', message, sendingUser);
 	});
