@@ -73,64 +73,68 @@ const DrawingCanvas = () => {
   };
 
   return (
-    <div className='drawingLobby'>
-      <Stage
-        width={1600}
-        height={600}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        style={{ border: '1px solid black' }}
-        ref={stageRef}
-      >
-        <Layer>
-          {lines.map((line, i) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.strokeColor}
-              strokeWidth={5}
-              tension={0.5}
-              lineCap='round'
-              globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
-              }
-            />
-          ))}
-        </Layer>
-      </Stage>
-      <span className='toolbox'>
-        <CirclePicker
-          color={selectedColor}
-          onChange={(e) => {
-            setColor(e.hex);
-          }}
-        />
-        <button
-          type='button'
-          value='eraser'
-          className='toolbox-btn'
-          onClick={(e) => {
-            setTool(e.currentTarget.value);
-          }}
-        >
-          <Eraser />
-        </button>
-        <button
-          type='button'
-          value='pen'
-          className='toolbox-btn'
-          onClick={(e) => {
-            setTool(e.currentTarget.value);
-          }}
-        >
-          <Pencil />
-        </button>
-      </span>
-      <Link to='/postdraw'>
-        <button onClick={getDataURI}>end session</button>
-      </Link>
-    </div>
+    <Container>
+      <Row>
+        <Col sm={4}>
+          <CirclePicker
+            color={selectedColor}
+            onChange={(e) => {
+              setColor(e.hex);
+            }}
+          />
+          <button
+            type='button'
+            value='eraser'
+            className='toolbox-btn'
+            onClick={(e) => {
+              setTool(e.currentTarget.value);
+            }}
+          >
+            <Eraser />
+          </button>
+          <button
+            type='button'
+            value='pen'
+            className='toolbox-btn'
+            onClick={(e) => {
+              setTool(e.currentTarget.value);
+            }}
+          >
+            <Pencil />
+          </button>
+          <Link to='/postdraw'>
+            <button onClick={getDataURI}>end session</button>
+          </Link>
+        </Col>
+        <Col sm={8}>
+          <Stage
+            width={1600}
+            height={600}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            style={{ border: '1px solid black' }}
+            ref={stageRef}
+          >
+            <Layer>
+              {lines.map((line, i) => (
+                <Line
+                  key={i}
+                  points={line.points}
+                  stroke={line.strokeColor}
+                  strokeWidth={5}
+                  tension={0.5}
+                  lineCap='round'
+                  globalCompositeOperation={
+                    line.tool === 'eraser' ? 'destination-out' : 'source-over'
+                  }
+                />
+              ))}
+            </Layer>
+          </Stage>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
