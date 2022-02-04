@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
@@ -39,7 +39,6 @@ const DrawingCanvas = () => {
       ...lines,
       { tool, points: [pos.x, pos.y], strokeColor: selectedColor },
     ]);
-    console.log(lines);
   };
 
   //mouse movement
@@ -65,10 +64,6 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
-  // const changeEraser = (tool) => {
-
-  // }
-
   var stageRef = useRef();
 
   const getDataURI = () => {
@@ -89,7 +84,7 @@ const DrawingCanvas = () => {
         ref={stageRef}
       >
         <Layer>
-          {lines.map((line, i, strokeColor) => (
+          {lines.map((line, i) => (
             <Line
               key={i}
               points={line.points}
