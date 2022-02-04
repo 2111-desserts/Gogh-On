@@ -7,8 +7,16 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: [],
+      messages: []
     }
+  }
+
+  componentDidMount(){
+    socket.on('receive-message', (message, sendingUser)=>{
+      this.setState({
+        messages: [...this.state.messages, { me: false, author: "otheruser", body: message }]
+      })
+    })
   }
 
   handleNewMessage = (text) => {
@@ -16,15 +24,10 @@ class Chat extends Component {
       messages: [...this.state.messages, { me: true, author: "Me", body: text }],
     })
     const sendingUser = window.localStorage.getItem('nickname')
-    socket.emit('send-message', text,sendingUser);
+    socket.emit('send-message', text, sendingUser);
   }
 
   render() {
-    socket.on('receive-message', (message, sendingUser)=>{
-      this.setState({
-        messages: [...this.state.messages, { me: false, author: "otheruser", body: message }]
-      })
-    })
     return (
       <div className="Chat">
         <div className='header'>Live Chat</div>
