@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
@@ -6,13 +6,7 @@ import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
-import socket from '../../socket'
-
-
-//COMING FROM socket backend (index.js)
-// socket.on('is-drawing', (line, sendingUser) => {
-//   socket.broadcast.emit('receive-drawing', line, sendingUser);
-// });
+import socket from '../../socket';
 
 const audioClip = {
   soundBrushStroke:
@@ -26,6 +20,13 @@ const DrawingCanvas = () => {
   const isDrawing = useRef(false);
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
+
+  //'COMPONENTDIDMOUNT'
+  useEffect(() => {
+    socket.on('is-drawing', (lines) => {
+      setLines(lines);
+    });
+  }, []);
 
   //sound: paintstroke
   const soundPlay = (src) => {
@@ -45,7 +46,11 @@ const DrawingCanvas = () => {
     const pos = e.target.getStage().getPointerPosition();
     setLines([
       ...lines,
-      { tool, points: [pos.x, pos.y], strokeColor: selectedColor },
+      {
+        tool,
+        points: [pos.x, pos.y],
+        strokeColor: selectedColor,
+      },
     ]);
   };
 
@@ -65,6 +70,7 @@ const DrawingCanvas = () => {
     //replace last
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
+    socket.emit('is-drawing', lines);
   };
 
   //when user lets go of mouse click
