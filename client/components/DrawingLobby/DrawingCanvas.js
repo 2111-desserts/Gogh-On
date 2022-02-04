@@ -1,14 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
-import {Howl} from 'howler';
+import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
+import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
 
 const audioClip = {
-  soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
-}
+  soundBrushStroke:
+    'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
+};
 
 const DrawingCanvas = () => {
   //states
@@ -19,14 +21,14 @@ const DrawingCanvas = () => {
   const [selectedColor, setColor] = useState('#f44336');
 
   //sound: paintstroke
-  const soundPlay = (src) =>{
+  const soundPlay = (src) => {
     const soundBrushStroke = new Howl({
       src,
       html5: true,
-      volume: 0.09
-     })
+      volume: 0.09,
+    });
     soundBrushStroke.play();
-  }
+  };
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {
@@ -38,7 +40,6 @@ const DrawingCanvas = () => {
       ...lines,
       { tool, points: [pos.x, pos.y], strokeColor: selectedColor },
     ]);
-    console.log(lines);
   };
 
   //mouse movement
@@ -64,79 +65,82 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
-  //eraser
-  const eraser = () => {
-    setColor('#fff');
-  };
-  var stageRef = useRef()
+  var stageRef = useRef();
 
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
-    console.log("this is the data url ", uri)
-    localStorage.setItem('dataURI', uri)
-  }
+    console.log('this is the data url ', uri);
+    localStorage.setItem('dataURI', uri);
+  };
 
   return (
-    <div className='drawingLobby'>
-      <Stage
-        width={1600}
-        height={600}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        style={{ border: '1px solid black' }}
-        ref={stageRef}
-      >
-        <Layer>
-          {lines.map((line, i, strokeColor) => (
-            <Line
-              key={i}
-              points={line.points}
-              stroke={line.strokeColor}
-              strokeWidth={5}
-              tension={0.5}
-              lineCap='round'
-            />
-          ))}
-        </Layer>
-      </Stage>
-      {/* <select
-        value={tool}
-        onChange={(e) => {
-          setTool(e.target.value);
-        }}
-      >
-        <option value='pen'>Pen</option>
-        <option value='eraser'>Eraser</option>
-      </select> */}
-      <span className='toolbox'>
-        <CirclePicker
-          color={selectedColor}
-          onChange={(e) => {
-            setColor(e.hex);
-            console.log(e);
-          }}
-        />
-        <button type='button' className='toolbox-btn' onClick={eraser}>
-          <Eraser />
-        </button>
-        <button type='button' className='toolbox-btn'>
-          <Pencil />
-        </button>
-      </span>
-      <Link to='/postdraw'>
-        <button onClick={getDataURI}>
-          end session
-        </button>
-      </Link>
-      <CirclePicker
-        color={selectedColor}
-        onChange={(e) => {
-          setColor(e.hex);
-          console.log(e);
-        }}
-      />
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <Stage
+            width={1600}
+            height={600}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            style={{ border: '1px solid black' }}
+            ref={stageRef}
+          >
+            <Layer>
+              {lines.map((line, i) => (
+                <Line
+                  key={i}
+                  points={line.points}
+                  stroke={line.strokeColor}
+                  strokeWidth={5}
+                  tension={0.5}
+                  lineCap='round'
+                  globalCompositeOperation={
+                    line.tool === 'eraser' ? 'destination-out' : 'source-over'
+                  }
+                />
+              ))}
+            </Layer>
+          </Stage>
+        </Col>
+        <Col className='toolbox'>
+          <CirclePicker
+            color={selectedColor}
+            onChange={(e) => {
+              setColor(e.hex);
+            }}
+          />
+          <ButtonGroup vertical>
+            <Button
+              variant='outline-primary'
+              type='button'
+              value='eraser'
+              onClick={(e) => {
+                setTool(e.currentTarget.value);
+              }}
+            >
+              <Eraser />
+            </Button>
+            <Button
+              variant='outline-primary'
+              type='button'
+              value='pen'
+              className='toolbox-btn'
+              onClick={(e) => {
+                setTool(e.currentTarget.value);
+              }}
+            >
+              <Pencil />
+            </Button>
+            <Link to='/postdraw'>
+              <Button variant='outline-primary' onClick={getDataURI}>
+                end session
+              </Button>
+            </Link>
+          </ButtonGroup>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
