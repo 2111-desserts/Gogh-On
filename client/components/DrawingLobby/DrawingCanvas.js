@@ -104,15 +104,6 @@ const DrawingCanvas = () => {
           ))}
         </Layer>
       </Stage>
-      {/* <select
-        value={tool}
-        onChange={(e) => {
-          setTool(e.target.value);
-        }}
-      >
-        <option value='pen'>Pen</option>
-        <option value='eraser'>Eraser</option>
-      </select> */}
       <span className='toolbox'>
         <CirclePicker
           color={selectedColor}
