@@ -6,7 +6,6 @@ import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const audioClip = {
   soundBrushStroke:
