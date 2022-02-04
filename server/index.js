@@ -13,6 +13,9 @@ serverSocket.on('connection', (socket) => {
 		//socket.emit('new-user', roomId)
 		console.log(`sucessfully joined room `, roomId)
 	})
+	socket.on('is-drawing', (line, sendingUser) => {
+		socket.broadcast.emit('receive-drawing', line, sendingUser);
+	});
 	socket.on('send-message', (message, sendingUser) => {
 		socket.broadcast.emit('receive-message', message, sendingUser);
 	});
