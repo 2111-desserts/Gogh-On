@@ -21,6 +21,13 @@ const server = app.listen(PORT, () => {
 const serverSocket = require('socket.io')(server)
 serverSocket.on('connection', (socket) => {
 	console.log(`Connection from client ${socket.id}`);
+	socket.on('join-room',(roomId) =>{
+		socket.join(roomId)
+		console.log(`sucessfully joined room `, roomId)
+	})
+	socket.on('backend-test', (message) =>{
+		console.log(message)
+	})
 	// socket.on('send-message', (message, room) => {
 	// 	if (room === '') {
 	// 		socket.broadcast.emit('receive-message', message);
@@ -28,11 +35,11 @@ serverSocket.on('connection', (socket) => {
 	// 		socket.to(room).emit('receive-message', message);
 	// 	}
 	// });
-	socket.on('join-room', (room, cb) => {
-		socket.join(room);
-		// socket.broadcast.emit('joined-room', user);
-		cb(`joined ${room}`);
-	});
+	// socket.on('join-room', (room, cb) => {
+	// 	socket.join(room);
+	// 	// socket.broadcast.emit('joined-room', user);
+	// 	cb(`joined ${room}`);
+	// });
 });
 
 //from OG fullstack boilerplate

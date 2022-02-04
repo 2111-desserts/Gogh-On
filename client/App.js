@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import Routes from './Routes';
-import Chat from './components/Chat/Chat';
-import socket from 'socket.io-client';
-import { useState } from "react";
-
-const clientSocket = socket(window.location.origin);
-
-const App = () => {
+import io from 'socket.io-client';
 
 
-  return (
-    <div>
-      <Navbar />
-      <Routes />
+class App extends Component {
+  state = {
+    socket: null
+  }
 
-    </div>
-  )
+  componentDidMount(){
+    this.initSocket()
+  }
+
+  initSocket = () =>{
+    let socket = io(window.location.origin)
+    this.setState({socket})
+    socket.on('connect', () => console.log('Connected~'))
+    socket.emit('backend-test',"testing if this works");
+  }
+  render(){
+    const {socket} = this.state;
+    console.log(socket)
+    return (
+      <div>
+        <Navbar />
+        <Routes socket = {socket}/>
+      </div>
+    )
+  }  
 }
 
 export default App
