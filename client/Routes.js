@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import PostDraw from './components/PostDraw';
 import Lobby from './components/Lobby';
@@ -11,6 +10,7 @@ import { me } from './store';
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
 import Chat from './components/Chat/Chat';
 import About from './components/About';
+import socket, {initSocket} from './socket';
 
 /**
  * COMPONENT
@@ -18,29 +18,18 @@ import About from './components/About';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    initSocket(socket)
   }
 
   render() {
-    // const {isLoggedIn} = this.props
-
     return (
       <div>
-        {/* {isLoggedIn ? (
-          <Switch>
-            <Route path='/home' component={Home} />
-            <Redirect to='/home' />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path='/' exact component={Login} />
-            <Route path='/login' component={Login} />
-            <Route path='/signup' component={Signup} />
-            <Route path='/canvas' component={Main} />
-          </Switch>
-        )} */}
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/landing' component={LandingPage} />
+          {/* <Route exact path ='/landing'> 
+            <LandingPage socket = {socket}/> 
+          </Route> */}
           <Route path='/landing/:roomId' component={LandingPage} />
           <Route exact path='/settings' component={Settings} />
           <Route path='/canvas' component={DrawingCanvas} />

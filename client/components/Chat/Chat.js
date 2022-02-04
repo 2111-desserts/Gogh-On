@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import MessageForm from './MessageForm'
 import MessageList from './MessageList'
-import socket from 'socket.io-client';
-
-const clientSocket = socket(window.location.origin);
+import socket from '../../socket'
 
 class Chat extends Component {
   constructor(props) {
@@ -17,9 +15,16 @@ class Chat extends Component {
     this.setState({
       messages: [...this.state.messages, { me: true, author: "Me", body: text }],
     })
+    const sendingUser = window.localStorage.getItem('nickname')
+    socket.emit('send-message', text,sendingUser);
   }
 
   render() {
+    socket.on('receive-message', (message, sendingUser)=>{
+      this.setState({
+        messages: [...this.state.messages, { me: false, author: "otheruser", body: message }]
+      })
+    })
     return (
       <div className="Chat">
         <div className='header'>Live Chat</div>

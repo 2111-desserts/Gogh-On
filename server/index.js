@@ -1,6 +1,27 @@
 const PORT = process.env.PORT || 8080;
 const app = require('./app');
 
+const server = app.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}`);
+});
+
+const serverSocket = require('socket.io')(server)
+serverSocket.on('connection', (socket) => {
+	console.log(`Connection from client ${socket.id}`);
+	socket.on('join-room',(roomId) =>{
+		socket.join(roomId)
+		console.log(`sucessfully joined room `, roomId)
+	})
+	socket.on('backend-test', (message) =>{
+		console.log(message)
+	})
+	socket.on('send-message', (message, sendingUser) => {
+		socket.broadcast.emit('receive-message', message, sendingUser);
+	});
+});
+
+
+
 // //From og fullstack boilerplate (NOT working):
 // const socket = require('socket.io');
 
@@ -12,28 +33,5 @@ const app = require('./app');
 //     console.log(ex);
 //   }
 // };
-
-const server = app.listen(PORT, () => {
-	console.log(`Listening on port ${PORT}`);
-});
-
-
-const serverSocket = require('socket.io')(server)
-serverSocket.on('connection', (socket) => {
-	console.log(`Connection from client ${socket.id}`);
-	// socket.on('send-message', (message, room) => {
-	// 	if (room === '') {
-	// 		socket.broadcast.emit('receive-message', message);
-	// 	} else {
-	// 		socket.to(room).emit('receive-message', message);
-	// 	}
-	// });
-	socket.on('join-room', (room, cb) => {
-		socket.join(room);
-		// socket.broadcast.emit('joined-room', user);
-		cb(`joined ${room}`);
-	});
-});
-
-//from OG fullstack boilerplate
+//
 // init();

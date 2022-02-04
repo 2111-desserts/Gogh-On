@@ -3,6 +3,7 @@ import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
+<<<<<<< HEAD
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +11,14 @@ const audioClip = {
   soundBrushStroke:
     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
 };
+=======
+import {Howl} from 'howler';
+import { Link } from 'react-router-dom';
+
+const audioClip = {
+  soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
+}
+>>>>>>> main
 
 const DrawingCanvas = () => {
   //states
