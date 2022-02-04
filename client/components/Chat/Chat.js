@@ -14,7 +14,7 @@ class Chat extends Component {
   componentDidMount(){
     socket.on('receive-message', (message, sendingUser)=>{
       this.setState({
-        messages: [...this.state.messages, { me: false, author: "otheruser", body: message }]
+        messages: [...this.state.messages, { me: false, author: sendingUser, body: message }]
       })
     })
   }
