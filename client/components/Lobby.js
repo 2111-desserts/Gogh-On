@@ -36,6 +36,9 @@ class Lobby extends Component{
   }
 
   handleClick(){
+    const roomId = window.localStorage.getItem('roomId')
+    //ATM it's written to adjust to localhost site hosting rather than heroku
+    navigator.clipboard.writeText("localhost:8080/landing/"+roomId)
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
     }
@@ -64,7 +67,7 @@ class Lobby extends Component{
           </div>)
         })}</div>
         <Chat />
-        <button className="session-link" type='button' onClick={() => this.handleClick()}>url session link goes here</button>
+        <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
       </div>
     )
   }
