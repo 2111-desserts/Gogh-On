@@ -1,7 +1,7 @@
 @import 'lobby.css';
 @import 'chat-style.css';
 @import 'toolbox.css';
-@import 'bootstrap/dist/css/bootstrap.min.css';
+/* @import 'bootstrap/dist/css/bootstrap.min.css'; */
 
 body {
   font-family: sans-serif;

@@ -3,22 +3,15 @@ import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
-<<<<<<< HEAD
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
+import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const audioClip = {
   soundBrushStroke:
     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
 };
-=======
-import {Howl} from 'howler';
-import { Link } from 'react-router-dom';
-
-const audioClip = {
-  soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
-}
->>>>>>> main
 
 const DrawingCanvas = () => {
   //states
@@ -84,38 +77,7 @@ const DrawingCanvas = () => {
   return (
     <Container>
       <Row>
-        <Col sm={4}>
-          <CirclePicker
-            color={selectedColor}
-            onChange={(e) => {
-              setColor(e.hex);
-            }}
-          />
-          <button
-            type='button'
-            value='eraser'
-            className='toolbox-btn'
-            onClick={(e) => {
-              setTool(e.currentTarget.value);
-            }}
-          >
-            <Eraser />
-          </button>
-          <button
-            type='button'
-            value='pen'
-            className='toolbox-btn'
-            onClick={(e) => {
-              setTool(e.currentTarget.value);
-            }}
-          >
-            <Pencil />
-          </button>
-          <Link to='/postdraw'>
-            <button onClick={getDataURI}>end session</button>
-          </Link>
-        </Col>
-        <Col sm={8}>
+        <Col>
           <Stage
             width={1600}
             height={600}
@@ -141,6 +103,42 @@ const DrawingCanvas = () => {
               ))}
             </Layer>
           </Stage>
+        </Col>
+        <Col className='toolbox'>
+          <CirclePicker
+            color={selectedColor}
+            onChange={(e) => {
+              setColor(e.hex);
+            }}
+          />
+          <ButtonGroup vertical>
+            <Button
+              variant='outline-primary'
+              type='button'
+              value='eraser'
+              onClick={(e) => {
+                setTool(e.currentTarget.value);
+              }}
+            >
+              <Eraser />
+            </Button>
+            <Button
+              variant='outline-primary'
+              type='button'
+              value='pen'
+              className='toolbox-btn'
+              onClick={(e) => {
+                setTool(e.currentTarget.value);
+              }}
+            >
+              <Pencil />
+            </Button>
+            <Link to='/postdraw'>
+              <Button variant='outline-primary' onClick={getDataURI}>
+                end session
+              </Button>
+            </Link>
+          </ButtonGroup>
         </Col>
       </Row>
     </Container>
