@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
 import { uid } from 'uid'
 import socket from '../socket'
 
@@ -23,7 +21,8 @@ class LandingPage extends Component{
             socket:socket
         })
 
-        const room = this.props.match.params.roomId;
+        const room = this.props.location.search.substring(1);
+        console.log(room);
         if(!room){
             const newRoomId = uid();
             this.setState({
@@ -45,7 +44,6 @@ class LandingPage extends Component{
 
     handleSubmit(evt) {
         evt.preventDefault();
-        console.log("handeling submit")
         this.state.socket.emit('join-room',this.state.roomId)
         window.localStorage.setItem('roomId',this.state.roomId)
         window.localStorage.setItem('nickname',this.state.nickname)
@@ -60,6 +58,7 @@ class LandingPage extends Component{
                 <div className = 'logo'>
                     <h1>LOGO</h1>   
                 </div>
+                <h3>Welcome to the Drawing Website!</h3>
                 <div>
                     <form id='player-info' onSubmit={handleSubmit}>
                         <label htmlFor='nickname'>Nickname:</label>
@@ -67,12 +66,11 @@ class LandingPage extends Component{
 
                         <label htmlFor='avatar'>Avatar Color:</label>
                         <input name = 'avatar' onChange={handleChange} value={avatar}/>
-                        {this.props.match.params.roomId ? (
+                        {this.props.location.search.substring(1) ? (
                             <button type = 'sumbit'>Join Room</button>
                         ) :(
                             <button type = 'sumbit'>Create Room</button>
                         )}
-                        
                     </form>
                 </div>
             </div> 
@@ -80,4 +78,4 @@ class LandingPage extends Component{
     }
 }
 
-export default connect(null)(LandingPage)
+export default (LandingPage)

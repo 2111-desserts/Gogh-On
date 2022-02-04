@@ -1,5 +1,5 @@
 GH CAPSTONE PROJECT: TEAM DESSERTS! 
-Aata Amanda Ellie Quynh
+Ataa Amanda Ellie Quynh
 
  A collaborative drawing space where users can use an online drawing board and express their creativity - together!
 
