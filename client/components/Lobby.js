@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Howl} from 'howler';
+import Chat from './Chat/Chat'
 
 const audioClip = {
   sound: 'https://algorithmic-8ball.neocities.org/team_dessert/button_START.mp3'
@@ -49,10 +50,11 @@ class Lobby extends Component{
         <div className="logo">logo</div>
         <div className="users">
           {users.map((user) => {
-            return(<div>
-              <img src={user.avatar} width="200px" />
-            </div>)
-          }) }
+            return(
+              <div>
+                <img src={user.avatar} width="200px" />
+              </div>)
+            })}
         </div>
 
         <div className="draw-session-settings">{settings.map((setting) => {
@@ -61,6 +63,7 @@ class Lobby extends Component{
             <p>{setting.name}</p>
           </div>)
         })}</div>
+        <Chat />
         <button className="session-link" type='button' onClick={() => this.handleClick()}>url session link goes here</button>
       </div>
     )

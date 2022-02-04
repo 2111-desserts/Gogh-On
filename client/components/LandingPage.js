@@ -48,13 +48,13 @@ class LandingPage extends Component{
         console.log("handeling submit")
         this.state.socket.emit('join-room',this.state.roomId)
         window.localStorage.setItem('roomId',this.state.roomId)
+        window.localStorage.setItem('nickname',this.state.nickname)
         this.props.history.push('/lobby')
     }
 
     render(){
         const {nickname,avatar, roomId} = this.state;
         const {handleChange, handleSubmit} = this;
-        console.log(this.state)
         return(
             <div>
                 <div className = 'logo'>
