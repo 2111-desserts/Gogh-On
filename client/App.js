@@ -4,6 +4,7 @@ import Routes from './Routes';
 import Chat from './components/Chat/Chat';
 import socket from 'socket.io-client';
 import { useState } from 'react';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const clientSocket = socket(window.location.origin);
 

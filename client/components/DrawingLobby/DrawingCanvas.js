@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
-<<<<<<< HEAD
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
-=======
-import {Howl} from 'howler';
+import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 
 const audioClip = {
-  soundBrushStroke: 'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3'
-}
->>>>>>> main
+  soundBrushStroke:
+    'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
+};
 
 const DrawingCanvas = () => {
   //states
@@ -22,14 +20,14 @@ const DrawingCanvas = () => {
   const [selectedColor, setColor] = useState('#f44336');
 
   //sound: paintstroke
-  const soundPlay = (src) =>{
+  const soundPlay = (src) => {
     const soundBrushStroke = new Howl({
       src,
       html5: true,
-      volume: 0.09
-     })
+      volume: 0.09,
+    });
     soundBrushStroke.play();
-  }
+  };
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {
@@ -67,17 +65,17 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
-  //eraser
-  const eraser = () => {
-    setColor('#fff');
-  };
-  var stageRef = useRef()
+  // const changeEraser = (tool) => {
+
+  // }
+
+  var stageRef = useRef();
 
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
-    console.log("this is the data url ", uri)
-    localStorage.setItem('dataURI', uri)
-  }
+    console.log('this is the data url ', uri);
+    localStorage.setItem('dataURI', uri);
+  };
 
   return (
     <div className='drawingLobby'>
@@ -99,6 +97,9 @@ const DrawingCanvas = () => {
               strokeWidth={5}
               tension={0.5}
               lineCap='round'
+              globalCompositeOperation={
+                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+              }
             />
           ))}
         </Layer>
@@ -117,28 +118,32 @@ const DrawingCanvas = () => {
           color={selectedColor}
           onChange={(e) => {
             setColor(e.hex);
-            console.log(e);
           }}
         />
-        <button type='button' className='toolbox-btn' onClick={eraser}>
+        <button
+          type='button'
+          value='eraser'
+          className='toolbox-btn'
+          onClick={(e) => {
+            setTool(e.currentTarget.value);
+          }}
+        >
           <Eraser />
         </button>
-        <button type='button' className='toolbox-btn'>
+        <button
+          type='button'
+          value='pen'
+          className='toolbox-btn'
+          onClick={(e) => {
+            setTool(e.currentTarget.value);
+          }}
+        >
           <Pencil />
         </button>
       </span>
       <Link to='/postdraw'>
-        <button onClick={getDataURI}>
-          end session
-        </button>
+        <button onClick={getDataURI}>end session</button>
       </Link>
-      <CirclePicker
-        color={selectedColor}
-        onChange={(e) => {
-          setColor(e.hex);
-          console.log(e);
-        }}
-      />
     </div>
   );
 };
