@@ -1,22 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
-const Navbar = () => (
-  <div>
-    <Link to ='/'>
-      <h1>Collaborative Drawing Website</h1>
-    </Link>
-    <nav>
-      <div>
-        <Link to='/settings'>settings</Link>
-        <Link to='/canvas'>canvas</Link>
-        <Link to ='/chat'>chat</Link>
-        <Link to ='/about'>about us</Link>
-
-      </div>
-    </nav>
-    <hr />
-  </div>
+const NavigationBar = () => (
+  <Navbar bg='primary' variant='dark'>
+    <Navbar.Brand href='/'>
+      <img
+        alt=''
+        src='/favicon.ico'
+        width='30'
+        height='30'
+        className='d-inline-block align-top'
+      />{' '}
+      Collaborative Drawing Website
+    </Navbar.Brand>
+    <Nav>
+      <Nav.Link href='/'>Home</Nav.Link>
+      <Nav.Link href='/settings'>Settings</Nav.Link>
+      <Nav.Link href='/canvas'>Canvas</Nav.Link>
+      <Nav.Link href='/chat'>Chat</Nav.Link>
+      <Nav.Link href='/about'>About Us</Nav.Link>
+    </Nav>
+  </Navbar>
 );
 
-export default (Navbar);
+export default NavigationBar;
