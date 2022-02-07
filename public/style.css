@@ -10,6 +10,10 @@ a {
   text-decoration: none;
 }
 
+label {
+  display: block;
+}
+
 .btn.btn-outline-primary {
   /* color: #842029; */
 }
