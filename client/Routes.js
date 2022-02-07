@@ -7,6 +7,8 @@ import Settings from './components/Settings';
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
 import Chat from './components/Chat/Chat';
 import About from './components/About';
+import FreeDraw from './components/RoomModes/FreeDraw';
+
 import socket, {initSocket} from './socket';
 
 
@@ -27,6 +29,7 @@ class Routes extends Component {
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />
           <Route path='/about' component={About} />
+          <Route path='/freeDraw' component ={FreeDraw} />
         </Switch>
       </div>
     );
