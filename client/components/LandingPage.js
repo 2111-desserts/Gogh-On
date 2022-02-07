@@ -1,6 +1,8 @@
-import React, {Component} from 'react'
+import React, {Component, useMemo} from 'react'
 import { uid } from 'uid'
 import socket from '../socket'
+import { createAvatar } from '@dicebear/avatars'
+import * as style from '@dicebear/adventurer'
 
 class LandingPage extends Component{
     constructor(){
@@ -46,17 +48,28 @@ class LandingPage extends Component{
         evt.preventDefault();
         this.state.socket.emit('join-room',this.state.roomId)
         window.localStorage.setItem('roomId',this.state.roomId)
+        window.localStorage.setItem('avatar', this.state.avatar)
         window.localStorage.setItem('nickname',this.state.nickname)
         this.props.history.push('/lobby')
     }
 
+    generateAvatar(){
+        return createAvatar(style, {
+              dataUri: true,
+              size: 128
+            })
+    }
+
+
     render(){
         const {nickname,avatar, roomId} = this.state;
         const {handleChange, handleSubmit} = this;
+
+
         return(
             <div>
                 <div className = 'logo'>
-                    <h1>LOGO</h1>   
+                    <h1>LOGO</h1>
                 </div>
                 <h3>Welcome to the Drawing Website!</h3>
                 <div>
@@ -65,6 +78,7 @@ class LandingPage extends Component{
                         <input name = 'nickname' onChange={handleChange} value={nickname}/>
 
                         <label htmlFor='avatar'>Avatar Color:</label>
+                        <img src={this.generateAvatar()}/>
                         <input name = 'avatar' onChange={handleChange} value={avatar}/>
                         {this.props.location.search.substring(1) ? (
                             <button type = 'sumbit'>Join Room</button>
@@ -73,8 +87,8 @@ class LandingPage extends Component{
                         )}
                     </form>
                 </div>
-            </div> 
-        ) 
+            </div>
+        )
     }
 }
 
