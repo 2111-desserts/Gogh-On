@@ -5,7 +5,7 @@ import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
+import { Container, ButtonGroup, Button } from 'react-bootstrap';
 import socket from '../../socket';
 
 const audioClip = {
@@ -88,35 +88,34 @@ const DrawingCanvas = () => {
 
   return (
     <Container>
-      <Row>
-        <Col>
-          <Stage
-            width={1600}
-            height={600}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            style={{ border: '1px solid black' }}
-            ref={stageRef}
-          >
-            <Layer>
-              {lines.map((line, i) => (
-                <Line
-                  key={i}
-                  points={line.points}
-                  stroke={line.strokeColor}
-                  strokeWidth={5}
-                  tension={0.5}
-                  lineCap='round'
-                  globalCompositeOperation={
-                    line.tool === 'eraser' ? 'destination-out' : 'source-over'
-                  }
-                />
-              ))}
-            </Layer>
-          </Stage>
-        </Col>
-        <Col className='toolbox'>
+      <div className='drawingLobby'>
+        <Stage
+          width={1600}
+          height={600}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          style={{ border: '1px solid black' }}
+          ref={stageRef}
+        >
+          {/*layer can have an id, clearBeforeDraw set  false to prevent canvas clear*/}
+          <Layer>
+            {lines.map((line, i) => (
+              <Line
+                key={i}
+                points={line.points}
+                stroke={line.strokeColor}
+                strokeWidth={5}
+                tension={0.5}
+                lineCap='round'
+                globalCompositeOperation={
+                  line.tool === 'eraser' ? 'destination-out' : 'source-over'
+                }
+              />
+            ))}
+          </Layer>
+        </Stage>
+        <span className='toolbox'>
           <CirclePicker
             color={selectedColor}
             onChange={(e) => {
@@ -151,8 +150,8 @@ const DrawingCanvas = () => {
               </Button>
             </Link>
           </ButtonGroup>
-        </Col>
-      </Row>
+        </span>
+      </div>
     </Container>
   );
 };
