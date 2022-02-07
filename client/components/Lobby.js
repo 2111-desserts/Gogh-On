@@ -48,7 +48,7 @@ class Lobby extends Component{
     navigator.clipboard.writeText("localhost:8080/?"+roomId)
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
-    }
+  }
 
 
   render(){

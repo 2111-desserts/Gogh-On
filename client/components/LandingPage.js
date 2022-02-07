@@ -1,9 +1,6 @@
-
 import React, { Component } from 'react'
 import { uid } from 'uid'
 import socket from '../socket'
-import { createAvatar } from '@dicebear/avatars'
-import * as style from '@dicebear/adventurer'
 import { Form, Button} from 'react-bootstrap';
 
 
@@ -12,14 +9,13 @@ class LandingPage extends Component {
     super();
     this.state = {
       nickname: '',
-      avatarSeed: '',
+      avatarSeed: 'seed',
       roomId: '',
       socket: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.generateAvatar = this.generateAvatar.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +24,6 @@ class LandingPage extends Component {
     });
 
     const room = this.props.location.search.substring(1);
-    console.log(room);
     if (!room) {
       const newRoomId = uid();
       this.setState({
@@ -39,7 +34,6 @@ class LandingPage extends Component {
         roomId: room,
       });
     }
-    this.generateAvatar()
   }
 
 
@@ -52,26 +46,16 @@ class LandingPage extends Component {
         this.props.history.push('/lobby')
     }
 
-    generateAvatar(){
-        const newAvatar = createAvatar(style, {
-            dataUri: true,
-            size: 128
-        })
-        this.setState({
-            avatarSeed: newAvatar
-        })
-        
-    }
-
     handleChange(evt) {
         this.setState({
           [evt.target.name]: evt.currentTarget.value,
         });
+        console.log(this.state)
     }
     
     render() {
     const { avatarSeed } = this.state;
-    const { handleSubmit, handleChange, generateAvatar } = this;
+    const { handleSubmit, handleChange} = this;
     return (
         <div>
             <div className='logo'>
@@ -87,10 +71,9 @@ class LandingPage extends Component {
                 onChange={handleChange}
                 />
                 <Form.Label>Avatar</Form.Label>
-                <Form.Group>
-                <img src={avatarSeed}/>
-                <Form.Control name = 'avatarSeed' onChange={handleChange,generateAvatar} placeholder='Start writing your custom seed'/>
-                </Form.Group>
+                <img src={`https://avatars.dicebear.com/api/adventurer/${avatarSeed}.svg`} width ={128}/>
+                <Form.Control name = 'avatarSeed' onChange={handleChange} placeholder='Start writing your custom seed'/>
+
                 {this.props.location.search.substring(1) ? (
                 <Button type='submit'>Join Room</Button>
                 ) : (
