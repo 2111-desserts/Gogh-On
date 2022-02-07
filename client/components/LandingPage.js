@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+
+import React, { Component } from 'react'
+import { uid } from 'uid'
+import socket from '../socket'
+import { createAvatar } from '@dicebear/avatars'
+import * as style from '@dicebear/adventurer'
 import { Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { uid } from 'uid';
-import socket from '../socket';
-import { avatars } from './Avatars';
-import RandomAva from '../../public/icons/randomAva.svg';
+
+
+
 
 class LandingPage extends Component {
   constructor() {
@@ -43,6 +47,29 @@ class LandingPage extends Component {
     });
   }
 
+
+    handleSubmit(evt) {
+        evt.preventDefault();
+        this.state.socket.emit('join-room',this.state.roomId)
+        window.localStorage.setItem('roomId',this.state.roomId)
+        window.localStorage.setItem('avatar', this.state.avatar)
+        window.localStorage.setItem('nickname',this.state.nickname)
+        this.props.history.push('/lobby')
+    }
+
+    generateAvatar(){
+        return createAvatar(style, {
+              dataUri: true,
+              size: 128
+            })
+    }
+
+
+  
+}
+
+
+
   handleChange(evt) {
     this.setState({
       nickname: evt.currentTarget.value,
@@ -54,15 +81,6 @@ class LandingPage extends Component {
     this.setState({
       avatar: avatars[Math.floor(Math.random() * avatarLength)],
     });
-  }
-
-  handleSubmit(evt) {
-    evt.preventDefault();
-    this.state.socket.emit('join-room', this.state.roomId);
-    window.localStorage.setItem('roomId', this.state.roomId);
-    window.localStorage.setItem('nickname', this.state.nickname);
-    window.localStorage.setItem('avatar', this.state.avatar);
-    this.props.history.push('/lobby');
   }
 
   render() {
@@ -103,19 +121,10 @@ class LandingPage extends Component {
           />
           <Form.Label>Avatar</Form.Label>
           <Form.Group>
-            <img src={avatar} alt='avatar' width='156px' height='182px' />
-            <OverlayTrigger
-              placement='bottom'
-              overlay={
-                <Tooltip id='button-tooltip-2'>
-                  Click for a random avatar!
-                </Tooltip>
-              }
-            >
-              <Button type='button' onClick={handleAvatar}>
-                <RandomAva />
-              </Button>
-            </OverlayTrigger>
+             <img src={this.generateAvatar()}/>
+             <input name = 'avatar' onChange={handleChange} value={avatar}/>
+           
+            
           </Form.Group>
           {this.props.location.search.substring(1) ? (
             <Button type='submit'>Join Room</Button>
