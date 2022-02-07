@@ -5,22 +5,46 @@ const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
+let users = [];
+  // let onlineCount = 0;
+
 const serverSocket = require('socket.io')(server);
+
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
+
+  let addedToList = false;
+  let room;
+  let currentUsersInRoom;
+
   socket.on('join-room', (roomId) => {
-    socket.join(roomId);
+    if (addedToList) return;
+    // onlineCount++;
+    // roomId.id = onlineCount;
+    addedToList = true;
+    room = roomId.room;
+    users.push(roomId);
+    socket.join(roomId.room);
+    socket.userId = roomId.id
+    socket.emit('join-room', roomId);
+    currentUsersInRoom = users.filter((user) =>{
+      if (user.room === room){
+        return user;
+      }
+    });
+    serverSocket.in(room).emit("users", currentUsersInRoom);
     console.log(`sucessfully joined room `, roomId);
   });
+
   socket.on('backend-test', (message) => {
     console.log(message);
   });
   socket.on('is-drawing', (lines) => {
-    socket.broadcast.emit('is-drawing', lines);
+    socket.in(lines.roomId).emit('is-drawing', lines);
   });
 
   socket.on('send-message', (message, sendingUser) => {
-    socket.broadcast.emit('receive-message', message, sendingUser);
+    socket.in(message.roomId).emit('receive-message', message, sendingUser);
   });
 });
 
