@@ -4,9 +4,7 @@ import { uid } from 'uid'
 import socket from '../socket'
 import { createAvatar } from '@dicebear/avatars'
 import * as style from '@dicebear/adventurer'
-import { Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-
-
+import { Form, Button} from 'react-bootstrap';
 
 
 class LandingPage extends Component {
@@ -14,14 +12,14 @@ class LandingPage extends Component {
     super();
     this.state = {
       nickname: '',
-      avatar: '',
+      avatarSeed: '',
       roomId: '',
       socket: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAvatar = this.handleAvatar.bind(this);
+    this.generateAvatar = this.generateAvatar.bind(this);
   }
 
   componentDidMount() {
@@ -41,10 +39,7 @@ class LandingPage extends Component {
         roomId: room,
       });
     }
-
-    this.setState({
-      avatar: avatars[0],
-    });
+    this.generateAvatar()
   }
 
 
@@ -58,83 +53,54 @@ class LandingPage extends Component {
     }
 
     generateAvatar(){
-        return createAvatar(style, {
-              dataUri: true,
-              size: 128
-            })
+        const newAvatar = createAvatar(style, {
+            dataUri: true,
+            size: 128
+        })
+        this.setState({
+            avatarSeed: newAvatar
+        })
+        
     }
 
-
-  
-}
-
-
-
-  handleChange(evt) {
-    this.setState({
-      nickname: evt.currentTarget.value,
-    });
-  }
-
-  handleAvatar() {
-    let avatarLength = avatars.length;
-    this.setState({
-      avatar: avatars[Math.floor(Math.random() * avatarLength)],
-    });
-  }
-
-  render() {
-    const { nickname, avatar, roomId } = this.state;
-    const { handleSubmit, handleAvatar, handleChange } = this;
+    handleChange(evt) {
+        this.setState({
+          [evt.target.name]: evt.currentTarget.value,
+        });
+    }
+    
+    render() {
+    const { avatarSeed } = this.state;
+    const { handleSubmit, handleChange, generateAvatar } = this;
     return (
-      //   <div>
-      //     <div className='logo'>
-      //       <h1>LOGO</h1>
-      //     </div>
-      //     <h3>Welcome to the Drawing Website!</h3>
-      //     <div>
-      //       <form id='player-info' onSubmit={handleSubmit}>
-      //         <label htmlFor='nickname'>Nickname:</label>
-      //         <input name='nickname' onChange={handleChange} value={nickname} />
-
-      //         <label htmlFor='avatar'>Avatar Color:</label>
-      //         <input name='avatar' onChange={handleChange} value={avatar} />
-      //         {this.props.location.search.substring(1) ? (
-      //           <button type='sumbit'>Join Room</button>
-      //         ) : (
-      //           <button type='sumbit'>Create Room</button>
-      //         )}
-      //       </form>
-      //     </div>
-      //   </div>
-      <>
-        <div className='logo'>
-          <h1>LOGO</h1>
+        <div>
+            <div className='logo'>
+                <h1>LOGO</h1>
+            </div>
+            <h3>Welcome to the Drawing Website!</h3>
+            <Form onSubmit={handleSubmit}>
+                <Form.Label>Nickname</Form.Label>
+                <Form.Control
+                type='text'
+                name = 'nickname'
+                defaultValue='Cooldude42'
+                onChange={handleChange}
+                />
+                <Form.Label>Avatar</Form.Label>
+                <Form.Group>
+                <img src={avatarSeed}/>
+                <Form.Control name = 'avatarSeed' onChange={handleChange,generateAvatar} placeholder='Start writing your custom seed'/>
+                </Form.Group>
+                {this.props.location.search.substring(1) ? (
+                <Button type='submit'>Join Room</Button>
+                ) : (
+                <Button type='submit'>Create Room</Button>
+                )}
+            </Form>
         </div>
-        <h3>Welcome to the Drawing Website!</h3>
-        <Form onSubmit={handleSubmit}>
-          <Form.Label>Nickname</Form.Label>
-          <Form.Control
-            type='text'
-            defaultValue='Cooldude42'
-            onChange={handleChange}
-          />
-          <Form.Label>Avatar</Form.Label>
-          <Form.Group>
-             <img src={this.generateAvatar()}/>
-             <input name = 'avatar' onChange={handleChange} value={avatar}/>
-           
-            
-          </Form.Group>
-          {this.props.location.search.substring(1) ? (
-            <Button type='submit'>Join Room</Button>
-          ) : (
-            <Button type='submit'>Create Room</Button>
-          )}
-        </Form>
-      </>
     );
-  }
+    }
 }
+
 
 export default LandingPage;
