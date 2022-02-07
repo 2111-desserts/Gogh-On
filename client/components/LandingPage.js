@@ -39,7 +39,7 @@ class LandingPage extends Component {
     evt.preventDefault();
     this.state.socket.emit('join-room', this.state.roomId);
     window.localStorage.setItem('roomId', this.state.roomId);
-    window.localStorage.setItem('avatar', this.state.avatar);
+    window.localStorage.setItem('avatar', this.state.avatarSeed);
     window.localStorage.setItem('nickname', this.state.nickname);
     this.props.history.push('/lobby');
   }
@@ -50,7 +50,7 @@ class LandingPage extends Component {
         });
         console.log(this.state)
     }
-    
+
   render() {
     const { avatarSeed } = this.state;
     const { handleSubmit, handleChange} = this;
