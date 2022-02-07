@@ -23,7 +23,8 @@ class Lobby extends Component{
   constructor(){
     super()
     this.state ={
-      sound: false
+      sound: false,
+      players: []
     }
     this.handleClick = this.handleClick.bind(this)
   }
@@ -31,6 +32,9 @@ class Lobby extends Component{
   componentDidMount(){
     socket.on('new-user', (roomId) =>{
       console.log(`New user has joined room ${roomId}`)
+    })
+    this.setState({
+      players: [...this.state.players, window.localStorage.nickname]
     })
   }
 
@@ -52,27 +56,28 @@ class Lobby extends Component{
 
 
   render(){
-    let users = dummyUsers;
-    let settings = dummySettings
+    const { players } = this.state
+    // let settings = dummySettings
+    console.log(this.state)
 
     return(
       <div id="lobby-room">
         <div className="logo">logo</div>
         <div className="users">
-          {users.map((user) => {
+          {players.map((player) => {
             return(
               <div>
-                <img src={user.avatar} width="200px" />
+                <img src={player.avatar} width="200px" />
               </div>)
             })}
         </div>
 
-        <div className="draw-session-settings">{settings.map((setting) => {
+        {/* <div className="draw-session-settings">{settings.map((setting) => {
           return(<div>
             <img src={setting.image} width="200px" />
             <p>{setting.name}</p>
           </div>)
-        })}</div>
+        })}</div> */}
         <Chat />
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
       </div>

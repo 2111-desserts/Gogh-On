@@ -9,6 +9,7 @@ class LandingPage extends Component {
     this.state = {
       avatarSeed: 'seed',
       nickname: 'Cooldude42',
+      host: false,
       roomId: '',
       socket: null,
     };
@@ -27,6 +28,7 @@ class LandingPage extends Component {
       const newRoomId = uid();
       this.setState({
         roomId: newRoomId,
+        host: true
       });
     } else {
       this.setState({
@@ -41,6 +43,7 @@ class LandingPage extends Component {
     window.localStorage.setItem('roomId', this.state.roomId);
     window.localStorage.setItem('avatar', this.state.avatarSeed);
     window.localStorage.setItem('nickname', this.state.nickname);
+    window.localStorage.setItem('host', this.state.host);
     this.props.history.push('/lobby');
   }
 
