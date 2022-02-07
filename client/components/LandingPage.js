@@ -3,13 +3,12 @@ import { uid } from 'uid'
 import socket from '../socket'
 import { Form, Button} from 'react-bootstrap';
 
-
 class LandingPage extends Component {
   constructor() {
     super();
     this.state = {
-      nickname: '',
       avatarSeed: 'seed',
+      nickname: 'Cooldude42',
       roomId: '',
       socket: null,
     };
@@ -36,15 +35,14 @@ class LandingPage extends Component {
     }
   }
 
-
-    handleSubmit(evt) {
-        evt.preventDefault();
-        this.state.socket.emit('join-room',this.state.roomId)
-        window.localStorage.setItem('roomId',this.state.roomId)
-        window.localStorage.setItem('avatar', this.state.avatar)
-        window.localStorage.setItem('nickname',this.state.nickname)
-        this.props.history.push('/lobby')
-    }
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.state.socket.emit('join-room', this.state.roomId);
+    window.localStorage.setItem('roomId', this.state.roomId);
+    window.localStorage.setItem('avatar', this.state.avatar);
+    window.localStorage.setItem('nickname', this.state.nickname);
+    this.props.history.push('/lobby');
+  }
 
     handleChange(evt) {
         this.setState({
@@ -53,7 +51,7 @@ class LandingPage extends Component {
         console.log(this.state)
     }
     
-    render() {
+  render() {
     const { avatarSeed } = this.state;
     const { handleSubmit, handleChange} = this;
     return (
@@ -80,10 +78,9 @@ class LandingPage extends Component {
                 <Button type='submit'>Create Room</Button>
                 )}
             </Form>
-        </div>
+      </div>
     );
-    }
+  }
 }
-
 
 export default LandingPage;
