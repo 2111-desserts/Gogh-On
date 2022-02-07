@@ -5,7 +5,7 @@ import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
+import { Container, ButtonGroup, Button } from 'react-bootstrap';
 import socket from '../../socket';
 
 const audioClip = {
@@ -134,6 +134,7 @@ const DrawingCanvas = () => {
               <Eraser />
             </Button>
             <Button
+              variant='outline-primary'
               type='button'
               value='pen'
               className='toolbox-btn'

@@ -10,20 +10,25 @@ a {
   text-decoration: none;
 }
 
-/* label {
-  display: block;
-} */
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
 .btn.btn-outline-primary {
   /* color: #842029; */
+}
+
+.btn.btn-primary {
+  margin: 5px;
 }
 
 .navbar.navbar-expand.navbar-dark.bg-primary {
   flex-wrap: nowrap;
   justify-content: space-between;
+}
+
+input.form-control {
+  width: 30%;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
