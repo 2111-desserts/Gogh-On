@@ -24,7 +24,7 @@ class Routes extends Component {
           <Route exact path='/' component={LandingPage} />
           <Route path='/?:roomId' component={LandingPage} />
           <Route exact path='/settings' component={Settings} />
-          {/* <Route path='/canvas' component={DrawingCanvas} /> */}
+          <Route path='/canvas' component={Board} />
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />

@@ -13,10 +13,25 @@ import socket from '../../socket';
 //     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
 // };
 
+/*let myLayerMap = {
+  //userlogs in, userid
+  //on login create a new later
+  myLayerMap[user.id] = new Konva.Layer();
+
+  //socket message comes in
+  socket.on(message => {
+    if (message.userID) {
+      let layer = myLayerMap[message.userId]
+      //update this layer
+    }
+  })
+}*/
+
 const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
+  const [userLines, setUserLines] = useState({});
   const isDrawing = useRef(false);
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
@@ -24,11 +39,7 @@ const DrawingCanvas = () => {
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
     socket.on('is-drawing', (lines) => {
-      setLines(lines);
-    });
-
-    socket.on('on-down', (points) => {
-      lines[0].points;
+      setUserLines(lines);
     });
   }, []);
 
