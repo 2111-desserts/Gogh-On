@@ -64,7 +64,7 @@ const Board = () => {
       const w = canvas.width;
       const h = canvas.height;
 
-      socket.emit('drawing', {
+      socket.emit('is-drawing', {
         x0: x0 / w,
         y0: y0 / h,
         x1: x1 / w,
