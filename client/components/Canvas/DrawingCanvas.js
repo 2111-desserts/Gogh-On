@@ -75,12 +75,13 @@ const DrawingCanvas = () => {
     //replace last
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
-    socket.emit('is-drawing', lines);
+    // socket.emit('is-drawing', lines);
   };
 
   //when user lets go of mouse click
   const handleMouseUp = () => {
     isDrawing.current = false;
+    socket.emit('is-drawing', lines);
   };
 
   var stageRef = useRef();
