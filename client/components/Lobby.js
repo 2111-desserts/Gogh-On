@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Howl} from 'howler';
 import Chat from './Chat/Chat'
+import { Link } from "react-router-dom";
 import socket from '../socket'
 
 const audioClip = {
@@ -26,6 +27,7 @@ class Lobby extends Component{
       sound: false
     }
     this.handleClick = this.handleClick.bind(this)
+    this.startSession = this.startSession.bind(this)
   }
 
   componentDidMount(){
@@ -46,6 +48,11 @@ class Lobby extends Component{
     const roomId = window.localStorage.getItem('roomId')
     //ATM it's written to adjust to localhost site hosting rather than heroku
     navigator.clipboard.writeText("localhost:8080/?"+roomId)
+    this.setState.sound = true;
+    this.soundPlay(audioClip.sound);
+  }
+
+  startSession(){
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
   }
@@ -75,6 +82,7 @@ class Lobby extends Component{
         })}</div>
         <Chat />
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
+        <Link to="./freeDraw"><button type='button' onClick={() => this.startSession()}>Start Session</button></Link>
       </div>
     )
   }
