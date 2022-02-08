@@ -48,14 +48,11 @@ const DrawingCanvas = () => {
     const pos = e.target.getStage().getPointerPosition();
     socket.emit(
       'drawing',
-      console.log([
-        ...lines,
-        {
-          tool,
-          points: [pos.x, pos.y],
-          strokeColor: selectedColor,
-        },
-      ])
+      setLine({
+        tool,
+        points: [pos.x, pos.y],
+        strokeColor: selectedColor,
+      })
     );
   };
 
