@@ -1,20 +1,11 @@
-// const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const app = require('./app');
-const http = require("http");
-const cors = require("cors");
-const { Server } = require("socket.io")
-app.use(cors());
 
-const server = http.createServer(app);
+const server = app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
 
-// const serverSocket = require('socket.io')(server);
-const serverSocket = new http.ServerResponse(server, {
-  cors: {
-    origin:"*",
-    methods: ["GET", "POST"],
-  }
-})
-
+const serverSocket = require('socket.io')(server);
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
   socket.on('join-room', (roomId) => {
@@ -24,13 +15,8 @@ serverSocket.on('connection', (socket) => {
   socket.on('backend-test', (message) => {
     console.log(message);
   });
-  socket.on('is-drawing', (lines) => {
-    socket.broadcast.emit('is-drawing', lines);
-  });
-
-  socket.on('on-down', (data) => {
-    socket.broadcast.emit('on-down', data);
-    console.log(data);
+  socket.on('is-drawing', (data) => {
+    socket.broadcast.emit('is-drawing', data);
   });
 
   socket.on('send-message', (message, sendingUser, room) => {
@@ -38,9 +24,6 @@ serverSocket.on('connection', (socket) => {
   });
 });
 
-server.listen(8080, ()=>{
-  console.log('server is serving!!')
-})
 // //From og fullstack boilerplate (NOT working):
 // const socket = require('socket.io');
 
