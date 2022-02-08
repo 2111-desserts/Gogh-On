@@ -47,7 +47,9 @@ class Lobby extends Component{
   handleClick(){
     const roomId = window.localStorage.getItem('roomId')
     //ATM it's written to adjust to localhost site hosting rather than heroku
-    navigator.clipboard.writeText("localhost:8080/?"+roomId)
+    // navigator.clipboard.writeText("localhost:8080/?"+roomId)
+    navigator.clipboard.writeText("artusts.herokuapp.com/?"+roomId)
+
     // navigator.clipboard.writeText(`${window.location.href}/`+roomId)
 
     this.setState.sound = true;
