@@ -9,14 +9,8 @@ let users = [];
 // let onlineCount = 0;
 
 const serverSocket = require('socket.io')(server);
-
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
-
-  let addedToList = false;
-  let room;
-  let currentUsersInRoom;
-
   socket.on('join-room', (roomId) => {
     if (addedToList) return;
     // onlineCount++;
@@ -35,19 +29,15 @@ serverSocket.on('connection', (socket) => {
     serverSocket.in(room).emit('users', currentUsersInRoom);
     console.log(`sucessfully joined room `, roomId);
   });
-
   socket.on('backend-test', (message) => {
     console.log(message);
   });
-
   socket.on('is-drawing', (data) => {
     socket.broadcast.emit('is-drawing', data);
-    // console.log(lines);
   });
 
-  socket.on('send-message', (message, sendingUser) => {
-    socket.in(message.roomId).emit('receive-message', message, sendingUser);
-    console.log(message, sendingUser);
+  socket.on('send-message', (message, sendingUser, room) => {
+    socket.broadcast.to(room).emit('receive-message', message, sendingUser);
   });
 });
 
