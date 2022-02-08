@@ -44,14 +44,17 @@ const DrawingCanvas = () => {
     // soundBrushStroke = true;
     // soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
-    setLines([
-      ...lines,
-      {
-        tool,
-        points: [pos.x, pos.y],
-        strokeColor: selectedColor,
-      },
-    ]);
+    socket.on(
+      'on-down',
+      setLines([
+        ...lines,
+        {
+          tool,
+          points: [pos.x, pos.y],
+          strokeColor: selectedColor,
+        },
+      ])
+    );
   };
 
   //mouse movement
