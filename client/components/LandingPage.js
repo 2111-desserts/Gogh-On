@@ -41,7 +41,11 @@ class LandingPage extends Component {
     window.localStorage.setItem('roomId', this.state.roomId);
     window.localStorage.setItem('avatar', this.state.avatar);
     window.localStorage.setItem('nickname', this.state.nickname);
-    this.props.history.push('/lobby');
+    // this.props.history.push('/lobby');
+    this.props.history.push(`/lobby/${this.state.roomId}`);
+
+    // this.props.history.push('/chat');
+
   }
 
     handleChange(evt) {
