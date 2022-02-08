@@ -12,9 +12,9 @@ class Chat extends Component {
   }
 
   componentDidMount(){
-    socket.on('receive-message', (message, sendingUser)=>{
+    socket.on('receive-message', (message, sendingUser, room)=>{
       this.setState({
-        messages: [...this.state.messages, { me: false, author: sendingUser, body: message }]
+        messages: [...this.state.messages, { me: false, author: sendingUser, body: message, room: room }]
       })
     })
   }
@@ -24,7 +24,9 @@ class Chat extends Component {
       messages: [...this.state.messages, { me: true, author: "Me", body: text }],
     })
     const sendingUser = window.localStorage.getItem('nickname')
-    socket.emit('send-message', text, sendingUser);
+    const room = window.localStorage.getItem('roomId')
+    socket.emit('send-message', text, sendingUser, room);
+    console.log('room: ', room)
   }
 
   render() {
