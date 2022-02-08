@@ -17,6 +17,7 @@ const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
+  const [line, setLine] = useState({});
   const isDrawing = useRef(false);
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
@@ -44,14 +45,14 @@ const DrawingCanvas = () => {
     // soundBrushStroke = true;
     soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
-    socket.emit('drawing', [
-      ...lines,
-      {
+    socket.emit(
+      'drawing',
+      console.log({
         tool,
         points: [pos.x, pos.y],
         strokeColor: selectedColor,
-      },
-    ]);
+      })
+    );
   };
 
   //mouse movement
