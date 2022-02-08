@@ -8,16 +8,17 @@ import { Link } from 'react-router-dom';
 import { Container, ButtonGroup, Button } from 'react-bootstrap';
 import socket from '../../socket';
 
-const audioClip = {
-  soundBrushStroke:
-    'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
-};
+// const audioClip = {
+//   soundBrushStroke:
+//     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
+// };
 
 const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
+  const stageRef = useRef(null);
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
 
@@ -26,32 +27,32 @@ const DrawingCanvas = () => {
     socket.on('is-drawing', (lines) => {
       setLines(lines);
     });
-  }, []);
+  }, [lines]);
 
   //sound: paintstroke
-  const soundPlay = (src) => {
-    const soundBrushStroke = new Howl({
-      src,
-      html5: true,
-      volume: 0.09,
-    });
-    soundBrushStroke.play();
-  };
+  // const soundPlay = (src) => {
+  //   const soundBrushStroke = new Howl({
+  //     src,
+  //     html5: true,
+  //     volume: 0.02,
+  //   });
+  //   soundBrushStroke.play();
+  // };
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {
     isDrawing.current = true;
     // soundBrushStroke = true;
-    soundPlay(audioClip.soundBrushStroke);
+    // soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
-    setLines([
-      ...lines,
-      {
-        tool,
-        points: [pos.x, pos.y],
-        strokeColor: selectedColor,
-      },
-    ]);
+      setLines([
+        ...lines,
+        {
+          tool,
+          points: [pos.x, pos.y],
+          strokeColor: selectedColor,
+        },
+      ])
   };
 
   //mouse movement
@@ -78,11 +79,8 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
-  var stageRef = useRef();
-
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
-    console.log('this is the data url ', uri);
     localStorage.setItem('dataURI', uri);
   };
 

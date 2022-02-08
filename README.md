@@ -11,7 +11,7 @@ Ataa Amanda Ellie Quynh
 
  *
 Deployed link:
-https://artusts.herokuapp.com/chat
+https://artusts.herokuapp.com/
 *
 
 

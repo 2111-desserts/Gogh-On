@@ -26,12 +26,12 @@ serverSocket.on('connection', (socket) => {
   socket.on('backend-test', (message) => {
     console.log(message);
   });
-  socket.on('is-drawing', (lines) => {
-    socket.broadcast.emit('is-drawing', lines);
+  socket.on('is-drawing', (data) => {
+    socket.broadcast.emit('is-drawing', data);
   });
 
-  socket.on('send-message', (message, sendingUser) => {
-    socket.broadcast.emit('receive-message', message, sendingUser);
+  socket.on('send-message', (message, sendingUser, room) => {
+    socket.broadcast.to(room).emit('receive-message', message, sendingUser);
   });
 });
 
