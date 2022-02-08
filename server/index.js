@@ -42,15 +42,17 @@ serverSocket.on('connection', (socket) => {
 
   socket.on('is-drawing', (lines) => {
     socket.broadcast.emit('is-drawing', lines);
+    console.log(lines);
   });
 
-  socket.on('on-down', (data) => {
-    socket.broadcast.emit('on-down', data);
-    console.log(data);
+  socket.on('on-down', (lines) => {
+    socket.broadcast.emit('on-down', lines);
+    console.log(lines);
   });
 
   socket.on('send-message', (message, sendingUser) => {
     socket.in(message.roomId).emit('receive-message', message, sendingUser);
+    console.log(message, sendingUser);
   });
 });
 
