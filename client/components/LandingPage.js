@@ -39,7 +39,12 @@ class LandingPage extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.state.socket.emit('join-room', this.state.roomId);
+    this.state.socket.emit('join-room', {
+        roomId: this.state.roomId,
+        nickname: this.state.nickname,
+        avatar: this.state.avatarSeed,
+        host: this.state.host
+    });
     window.localStorage.setItem('roomId', this.state.roomId);
     window.localStorage.setItem('avatar', this.state.avatarSeed);
     window.localStorage.setItem('nickname', this.state.nickname);

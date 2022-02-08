@@ -30,12 +30,13 @@ class Lobby extends Component{
   }
 
   componentDidMount(){
-    socket.on('new-user', (roomId) =>{
-      console.log(`New user has joined room ${roomId}`)
+    socket.on('new-user', (player) =>{
+      console.log(`New user has joined room ${player.roomId}`)
+      this.setState({
+        players: [...this.state.players, player]
+      })
     })
-    this.setState({
-      players: [...this.state.players, window.localStorage.nickname]
-    })
+
   }
 
   soundPlay(src){
@@ -54,7 +55,11 @@ class Lobby extends Component{
     this.soundPlay(audioClip.sound);
   }
 
-
+  handleJoin(){
+    this.setState({
+      players: [...this.state.players, ]
+    })
+  }
   render(){
     const { players } = this.state
     // let settings = dummySettings
@@ -67,7 +72,8 @@ class Lobby extends Component{
           {players.map((player) => {
             return(
               <div>
-                <img src={player.avatar} width="200px" />
+                <img src={`https://avatars.dicebear.com/api/adventurer/${player.avatar}.svg`} width="200px" />
+                <p>{player.nickname}</p>
               </div>)
             })}
         </div>
