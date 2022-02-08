@@ -19,6 +19,7 @@ const NavigationBar = () => (
       <Nav.Link href='/canvas'>Canvas</Nav.Link>
       <Nav.Link href='/chat'>Chat</Nav.Link>
       <Nav.Link href='/about'>About Us</Nav.Link>
+      <Nav.Link href='/error'>Error Test</Nav.Link>
     </Nav>
   </Navbar>
 );
