@@ -44,14 +44,18 @@ const DrawingCanvas = () => {
     isDrawing.current = true;
     // soundBrushStroke = true;
     soundPlay(audioClip.soundBrushStroke);
+
     const pos = e.target.getStage().getPointerPosition();
     socket.emit(
       'drawing',
-      console.log({
-        tool,
-        points: [pos.x, pos.y],
-        strokeColor: selectedColor,
-      })
+      console.log([
+        ...lines,
+        {
+          tool,
+          points: [pos.x, pos.y],
+          strokeColor: selectedColor,
+        },
+      ])
     );
   };
 
