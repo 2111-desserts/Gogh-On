@@ -45,8 +45,6 @@ const DrawingCanvas = () => {
     // soundBrushStroke = true;
     // soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
-    console.log(
-      'setting lines to state',
       setLines([
         ...lines,
         {
@@ -55,7 +53,6 @@ const DrawingCanvas = () => {
           strokeColor: selectedColor,
         },
       ])
-    );
   };
 
   //mouse movement
