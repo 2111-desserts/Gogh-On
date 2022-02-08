@@ -18,6 +18,7 @@ const DrawingCanvas = () => {
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
+  const stageRef = useRef(null);
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
 
@@ -26,7 +27,7 @@ const DrawingCanvas = () => {
     socket.on('is-drawing', (lines) => {
       setLines(lines);
     });
-  }, []);
+  }, [lines]);
 
   //sound: paintstroke
   // const soundPlay = (src) => {
@@ -44,14 +45,17 @@ const DrawingCanvas = () => {
     // soundBrushStroke = true;
     // soundPlay(audioClip.soundBrushStroke);
     const pos = e.target.getStage().getPointerPosition();
-    setLines([
-      ...lines,
-      {
-        tool,
-        points: [pos.x, pos.y],
-        strokeColor: selectedColor,
-      },
-    ]);
+    console.log(
+      'setting lines to state',
+      setLines([
+        ...lines,
+        {
+          tool,
+          points: [pos.x, pos.y],
+          strokeColor: selectedColor,
+        },
+      ])
+    );
   };
 
   //mouse movement
@@ -78,11 +82,8 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
-  var stageRef = useRef();
-
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
-    console.log('this is the data url ', uri);
     localStorage.setItem('dataURI', uri);
   };
 

@@ -15,8 +15,8 @@ serverSocket.on('connection', (socket) => {
   socket.on('backend-test', (message) => {
     console.log(message);
   });
-  socket.on('is-drawing', (lines) => {
-    socket.broadcast.emit('is-drawing', lines);
+  socket.on('is-drawing', (data) => {
+    socket.broadcast.emit('is-drawing', data);
   });
 
   socket.on('send-message', (message, sendingUser, room) => {
