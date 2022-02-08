@@ -52,7 +52,7 @@ const DrawingCanvas = () => {
         strokeColor: selectedColor,
       },
     ]);
-    socket.emit('on-down', { points: [pos.x, pos.y] });
+    socket.on('on-down', { points: [pos.x, pos.y] });
   };
 
   //mouse movement
