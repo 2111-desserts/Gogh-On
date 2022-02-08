@@ -26,6 +26,10 @@ const DrawingCanvas = () => {
     socket.on('is-drawing', (lines) => {
       setLines(lines);
     });
+
+    socket.on('on-down', (points) => {
+      lines[0].points;
+    });
   }, []);
 
   //sound: paintstroke
@@ -43,7 +47,7 @@ const DrawingCanvas = () => {
     isDrawing.current = true;
     // soundBrushStroke = true;
     // soundPlay(audioClip.soundBrushStroke);
-    const pos = e.target.getStage().getPointerPosition();
+    const pos = e.currentTarget.getStage().getPointerPosition();
     setLines([
       ...lines,
       {
@@ -52,7 +56,7 @@ const DrawingCanvas = () => {
         strokeColor: selectedColor,
       },
     ]);
-    socket.on('on-down', { points: [pos.x, pos.y] });
+    socket.emit('on-down', pos);
   };
 
   //mouse movement

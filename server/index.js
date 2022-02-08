@@ -42,12 +42,12 @@ serverSocket.on('connection', (socket) => {
 
   socket.on('is-drawing', (lines) => {
     socket.broadcast.emit('is-drawing', lines);
-    console.log(lines);
+    // console.log(lines);
   });
 
-  socket.on('on-down', (lines) => {
-    socket.broadcast.emit('on-down', lines);
-    console.log(lines);
+  socket.on('on-down', (points) => {
+    socket.broadcast.emit('on-down', points);
+    console.log('on-down', points);
   });
 
   socket.on('send-message', (message, sendingUser) => {
