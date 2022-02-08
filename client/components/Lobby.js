@@ -61,6 +61,8 @@ class Lobby extends Component{
   startSession(){
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
+    this.props.history.push(`/freeDraw/${this.state.roomId}`);
+
   }
 
 
@@ -88,7 +90,7 @@ class Lobby extends Component{
         })}</div>
         <Chat />
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
-        <Link to="./freeDraw"><button type='button' onClick={() => this.startSession()}>Start Session</button></Link>
+        <Link to="/freeDraw"><button type='button' onClick={() => this.startSession()}>Start Session</button></Link>
       </div>
     )
   }
