@@ -1,11 +1,20 @@
-const PORT = process.env.PORT || 8080;
+// const PORT = process.env.PORT || 8080;
 const app = require('./app');
+const http = require("http");
+const cors = require("cors");
+const { Server } = require("socket.io")
+app.use(cors());
 
-const server = app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+const server = http.createServer(app);
 
-const serverSocket = require('socket.io')(server);
+// const serverSocket = require('socket.io')(server);
+const serverSocket = new http.ServerResponse(server, {
+  cors: {
+    origin:"*",
+    methods: ["GET", "POST"],
+  }
+})
+
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
   socket.on('join-room', (roomId) => {
@@ -24,6 +33,9 @@ serverSocket.on('connection', (socket) => {
   });
 });
 
+server.listen(8080, ()=>{
+  console.log('server is serving!!')
+})
 // //From og fullstack boilerplate (NOT working):
 // const socket = require('socket.io');
 
