@@ -40,14 +40,9 @@ serverSocket.on('connection', (socket) => {
     console.log(message);
   });
 
-  socket.on('is-drawing', (lines) => {
-    socket.broadcast.emit('is-drawing', lines);
+  socket.on('is-drawing', (data) => {
+    socket.broadcast.emit('is-drawing', data);
     // console.log(lines);
-  });
-
-  socket.on('on-down', (points) => {
-    socket.broadcast.emit('on-down', points);
-    console.log('on-down', points);
   });
 
   socket.on('send-message', (message, sendingUser) => {
