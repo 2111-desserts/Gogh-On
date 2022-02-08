@@ -9,6 +9,7 @@ class LandingPage extends Component {
     this.state = {
       avatarSeed: 'seed',
       nickname: 'Cooldude42',
+      host: false,
       roomId: '',
       socket: null,
     };
@@ -27,6 +28,7 @@ class LandingPage extends Component {
       const newRoomId = uid();
       this.setState({
         roomId: newRoomId,
+        host: true
       });
     } else {
       this.setState({
@@ -37,10 +39,16 @@ class LandingPage extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.state.socket.emit('join-room', this.state.roomId);
+    this.state.socket.emit('join-room', {
+        roomId: this.state.roomId,
+        nickname: this.state.nickname,
+        avatar: this.state.avatarSeed,
+        host: this.state.host
+    });
     window.localStorage.setItem('roomId', this.state.roomId);
-    window.localStorage.setItem('avatar', this.state.avatar);
+    window.localStorage.setItem('avatar', this.state.avatarSeed);
     window.localStorage.setItem('nickname', this.state.nickname);
+    window.localStorage.setItem('host', this.state.host);
     // this.props.history.push('/lobby');
     this.props.history.push(`/lobby/${this.state.roomId}`);
 
@@ -54,7 +62,7 @@ class LandingPage extends Component {
         });
         console.log(this.state)
     }
-    
+
   render() {
     const { avatarSeed } = this.state;
     const { handleSubmit, handleChange} = this;

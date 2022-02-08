@@ -5,13 +5,24 @@ const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
+// function joinToRoom(room, user)
+// const roomPlayers = []
+
 const serverSocket = require('socket.io')(server);
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
-  socket.on('join-room', (roomId) => {
-    socket.join(roomId);
-    console.log(`sucessfully joined room `, roomId);
+
+  socket.on('join-room', (userObject) => {
+    const { roomId } = userObject
+    socket.join(userObject.roomId);
+    console.log('this is the user object', userObject)
+    console.log(`successfully joined room `, roomId);
+    // roomPlayers.push(userObject)
+    socket.broadcast.emit('new-user', userObject)
+
   });
+
+
   socket.on('backend-test', (message) => {
     console.log(message);
   });
