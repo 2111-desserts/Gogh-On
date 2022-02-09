@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import PostDraw from './components/PostDraw';
 import Lobby from './components/Lobby';
 import LandingPage from './components/LandingPage';
-import Settings from './components/Settings';
 import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
 import Chat from './components/Chat/Chat';
 import About from './components/About';
@@ -24,7 +23,6 @@ class Routes extends Component {
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route path='/?:roomId' component={LandingPage} />
-          <Route exact path='/settings' component={Settings} />
           <Route path='/canvas' component={DrawingCanvas} />
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />

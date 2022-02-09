@@ -69,12 +69,7 @@ class Lobby extends Component{
     this.props.history.push(`/freeDraw/${this.state.roomId}`);
 
   }
-
-  handleJoin(){
-    this.setState({
-      players: [...this.state.players, ]
-    })
-  }
+  
   render(){
     const { players } = this.state
     // let settings = dummySettings

@@ -26,7 +26,6 @@ class Chat extends Component {
     const sendingUser = window.localStorage.getItem('nickname')
     const room = window.localStorage.getItem('roomId')
     socket.emit('send-message', text, sendingUser, room);
-    console.log('room: ', room)
   }
 
   render() {

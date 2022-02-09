@@ -22,10 +22,6 @@ serverSocket.on('connection', (socket) => {
 
   });
 
-
-  socket.on('backend-test', (message) => {
-    console.log(message);
-  });
   socket.on('is-drawing', (data) => {
     socket.broadcast.emit('is-drawing', data);
   });
