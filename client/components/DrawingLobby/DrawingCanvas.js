@@ -4,7 +4,7 @@ import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Container, ButtonGroup, Button } from 'react-bootstrap';
 import socket from '../../socket';
 
@@ -21,18 +21,23 @@ const DrawingCanvas = (props) => {
   const stageRef = useRef(null);
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
+  const history = useHistory();
 
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
-    console.log(Object.getPrototypeOf(history))
     socket.on('is-drawing', (lines) => {
       setLines(lines);
     });
+  }, [lines]);
+
+  useEffect(()=>{
     socket.on('ending-session',()=>{
       getDataURI()
-      history.push(`PostDraw`);
+      console.log("HELLO")
+      console.log(history)
+      history.push('/PostDraw');
     })
-  }, [lines]);
+  },[])
 
   //sound: paintstroke
   // const soundPlay = (src) => {

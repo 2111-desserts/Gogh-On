@@ -40,6 +40,7 @@ class Lobby extends Component{
     })
     socket.on('begin-session',()=>{
       this.props.history.push(`/freeDraw/${this.state.roomId}`);
+      console.log("working")
     })
     
 
