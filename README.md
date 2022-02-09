@@ -1,20 +1,32 @@
-GH CAPSTONE PROJECT: TEAM DESSERTS! 
-Ataa Amanda Ellie Quynh
-
- A collaborative drawing space where users can use an online drawing board and express their creativity - together!
-
-
-  Create 1 thing with up to 4 friends, where you're all the 'artist'. art-US-ts. (app name subject to discussion/change)
- 
- *UNDER DEVELOPMENT*.
- Fun game modes to help get past creative blocks and/or just play with friends TO COME!
-
+GH CAPSTONE PROJECT: GOGH ON! 
  *
 Deployed link:
 https://artusts.herokuapp.com/
 *
 
+Ataa Amanda Ellie Quynh
 
+about GOGH ON!:
+                   
+A virtual collaborative drawing space where users express their creativity - together!
+Create a piece of art with up to 4 friends
+
+CURRENT FEATURES:
+  - generate an avatar
+  - create a room
+  - generate a link to the room (to copy/paste to friends
+  - chat with users in your room (while you wait for everyone to join)
+  - START your session (more modes in prog), where you can continue chatting, and start drawing!
+  - When you're done:
+      - END your session by pressing 'end session' in your drawing toolbox
+      - SAVE your piece to your computer, or scrap it/start a new session!
+                                   
+ 
+ *UNDER DEVELOPMENT*.
+ Fun game modes to help get past creative blocks and/or just play with friends TO COME!
+
+
+FOR THE DEVELOPERS:
 *
 Deploy immediately by pushing your branch to Heroku:
 
