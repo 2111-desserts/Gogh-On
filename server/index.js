@@ -35,4 +35,10 @@ serverSocket.on('connection', (socket) => {
     console.log(roomId);
     socket.to(roomId).emit('begin-session');
   })
+  socket.on('end-session',(roomId)=>{
+    socket.to(roomId).emit('ending-session');
+
+    //make users 'leave' room
+    //clear any info from that session, inlcuding players, content, room, etc.
+  })
 });

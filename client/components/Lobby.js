@@ -39,9 +39,9 @@ class Lobby extends Component{
       })
     })
     socket.on('begin-session',()=>{
-      console.log("yo waddup")
       this.props.history.push(`/freeDraw/${this.state.roomId}`);
     })
+    
 
   }
 

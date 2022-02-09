@@ -19,6 +19,7 @@ class LandingPage extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     this.setState({
       socket: socket,
     });

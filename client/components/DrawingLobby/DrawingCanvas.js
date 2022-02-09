@@ -13,7 +13,7 @@ import socket from '../../socket';
 //     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
 // };
 
-const DrawingCanvas = () => {
+const DrawingCanvas = (props) => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
@@ -24,9 +24,14 @@ const DrawingCanvas = () => {
 
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
+    console.log(Object.getPrototypeOf(history))
     socket.on('is-drawing', (lines) => {
       setLines(lines);
     });
+    socket.on('ending-session',()=>{
+      getDataURI()
+      history.push(`PostDraw`);
+    })
   }, [lines]);
 
   //sound: paintstroke
@@ -79,11 +84,18 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  const endSession = () =>{
+    const roomId = window.localStorage.getItem('roomId')
+    socket.emit('end-session', roomId);
+    getDataURI();
+  }
+
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
     localStorage.setItem('dataURI', uri);
   };
-
+  
+  const host = window.localStorage.getItem('host')
   return (
     <Container>
       <div className='drawingLobby'>
@@ -142,11 +154,14 @@ const DrawingCanvas = () => {
             >
               <Pencil />
             </Button>
-            <Link to='/postdraw'>
-              <Button variant='outline-primary' onClick={getDataURI}>
-                end session
-              </Button>
-            </Link>
+            {host === 'true' ? (
+              <Link to='/postdraw'>
+                <Button variant='outline-primary' onClick={endSession}>
+                  end session
+                </Button>
+              </Link>
+            ):(<br/>)} 
+            
           </ButtonGroup>
         </span>
       </div>
