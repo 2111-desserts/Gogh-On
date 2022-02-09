@@ -40,6 +40,7 @@ class Lobby extends Component{
     })
     socket.on('begin-session',()=>{
       console.log("yo waddup")
+      this.props.history.push(`/freeDraw/${this.state.roomId}`);
     })
 
   }
@@ -69,7 +70,8 @@ class Lobby extends Component{
   startSession(){
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
-    socket.emit('start-session', this.state.roomId);
+    const roomId = window.localStorage.getItem('roomId')
+    socket.emit('start-session', roomId);
     this.props.history.push(`/freeDraw/${this.state.roomId}`);
 
   }
@@ -77,7 +79,6 @@ class Lobby extends Component{
   render(){
     const { players } = this.state
     // let settings = dummySettings
-    console.log(this.state)
     const host = window.localStorage.getItem('host')
     return(
       <div id="lobby-room">

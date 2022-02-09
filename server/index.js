@@ -31,6 +31,8 @@ serverSocket.on('connection', (socket) => {
   });
 
   socket.on('start-session', (roomId)=>{
+    console.log("starting session")
+    console.log(roomId);
     socket.to(roomId).emit('begin-session');
   })
 });
