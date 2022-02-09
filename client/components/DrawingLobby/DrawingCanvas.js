@@ -18,7 +18,8 @@ const DrawingCanvas = () => {
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
-  const stageRef = useRef(null);
+  // const stageRef = useRef(null);
+  const stageRef = React.createRef();
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
   const history = useHistory();
