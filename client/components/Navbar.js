@@ -11,7 +11,7 @@ const NavigationBar = () => (
         height='30'
         className='d-inline-block align-top'
       />{' '}
-      Collaborative Drawing Website
+      Gogh On!
     </Navbar.Brand>
     <Nav>
       <Nav.Link href='/'>Home</Nav.Link>

@@ -29,18 +29,8 @@ serverSocket.on('connection', (socket) => {
   socket.on('send-message', (message, sendingUser, room) => {
     socket.broadcast.to(room).emit('receive-message', message, sendingUser);
   });
+
+  socket.on('start-session', (roomId)=>{
+    socket.to(roomId).emit('begin-session');
+  })
 });
-
-// //From og fullstack boilerplate (NOT working):
-// const socket = require('socket.io');
-
-// const init = async () => {
-//   try {
-//     // start listening (and create a 'server' object representing our server)
-//     app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`));
-//   } catch (ex) {
-//     console.log(ex);
-//   }
-// };
-//
-// init();
