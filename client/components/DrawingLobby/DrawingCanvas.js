@@ -13,7 +13,7 @@ import socket from '../../socket';
 //     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
 // };
 
-const DrawingCanvas = (props) => {
+const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
@@ -33,8 +33,6 @@ const DrawingCanvas = (props) => {
   useEffect(()=>{
     socket.on('ending-session',()=>{
       getDataURI()
-      console.log("HELLO")
-      console.log(history)
       history.push('/PostDraw');
     })
   },[])
