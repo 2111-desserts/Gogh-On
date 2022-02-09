@@ -60,7 +60,6 @@ class LandingPage extends Component {
         this.setState({
           [evt.target.name]: evt.currentTarget.value,
         });
-        console.log(this.state)
     }
 
   render() {
@@ -82,7 +81,7 @@ class LandingPage extends Component {
                 />
                 <Form.Label>Avatar</Form.Label>
                 <img src={`https://avatars.dicebear.com/api/adventurer/${avatarSeed}.svg`} width ={128}/>
-                <Form.Control name = 'avatarSeed' onChange={handleChange} placeholder='Start writing your custom seed'/>
+                <Form.Control name = 'avatarSeed' onChange={handleChange} placeholder='Start writing your custom avatar seed'/>
 
                 {this.props.location.search.substring(1) ? (
                 <Button type='submit'>Join Room</Button>
