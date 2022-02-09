@@ -59,7 +59,6 @@ class LandingPage extends Component {
     this.setState({
       [evt.target.name]: evt.currentTarget.value,
     });
-    console.log(this.state);
   }
 
   render() {
@@ -87,7 +86,7 @@ class LandingPage extends Component {
           <Form.Control
             name='avatarSeed'
             onChange={handleChange}
-            placeholder='Start writing your custom seed'
+            placeholder='Start writing your custom avatar seed'
           />
 
           {this.props.location.search.substring(1) ? (

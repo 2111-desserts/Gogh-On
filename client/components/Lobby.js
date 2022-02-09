@@ -38,6 +38,11 @@ class Lobby extends Component{
         players: [...this.state.players, player]
       })
     })
+    socket.on('begin-session',()=>{
+      this.props.history.push(`/freeDraw/${this.state.roomId}`);
+      console.log("working")
+    })
+    
 
   }
 
@@ -66,20 +71,16 @@ class Lobby extends Component{
   startSession(){
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
+    const roomId = window.localStorage.getItem('roomId')
+    socket.emit('start-session', roomId);
     this.props.history.push(`/freeDraw/${this.state.roomId}`);
 
   }
-
-  handleJoin(){
-    this.setState({
-      players: [...this.state.players, ]
-    })
-  }
+  
   render(){
     const { players } = this.state
     // let settings = dummySettings
-    console.log(this.state)
-
+    const host = window.localStorage.getItem('host')
     return(
       <div id="lobby-room">
         <div className="logo">logo</div>
@@ -101,7 +102,12 @@ class Lobby extends Component{
         })}</div> */}
         <Chat />
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
-        <Link to="/freeDraw"><button type='button' onClick={() => this.startSession()}>Start Session</button></Link>
+        {host === 'true' ? (
+          <Link to="/freeDraw">
+            <button type='button' onClick={() => this.startSession()}>Start Session</button>
+          </Link>
+        ):(<br/>)} 
+        
       </div>
     )
   }

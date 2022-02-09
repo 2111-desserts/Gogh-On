@@ -4,7 +4,7 @@ import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Container, ButtonGroup, Button } from 'react-bootstrap';
 import socket from '../../socket';
 
@@ -18,9 +18,11 @@ const DrawingCanvas = () => {
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
   const isDrawing = useRef(false);
-  const stageRef = useRef(null);
+  // const stageRef = useRef(null);
+  const stageRef = React.createRef();
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
+  const history = useHistory();
 
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
@@ -28,6 +30,13 @@ const DrawingCanvas = () => {
       setLines(lines);
     });
   }, [lines]);
+
+  useEffect(()=>{
+    socket.on('ending-session',()=>{
+      getDataURI()
+      history.push('/PostDraw');
+    })
+  },[])
 
   //sound: paintstroke
   // const soundPlay = (src) => {
@@ -79,11 +88,18 @@ const DrawingCanvas = () => {
     isDrawing.current = false;
   };
 
+  const endSession = () =>{
+    const roomId = window.localStorage.getItem('roomId')
+    socket.emit('end-session', roomId);
+    getDataURI();
+  }
+
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
     localStorage.setItem('dataURI', uri);
   };
-
+  
+  const host = window.localStorage.getItem('host')
   return (
     <Container>
       <div className='drawingLobby'>
@@ -142,11 +158,14 @@ const DrawingCanvas = () => {
             >
               <Pencil />
             </Button>
-            <Link to='/postdraw'>
-              <Button variant='outline-primary' onClick={getDataURI}>
-                end session
-              </Button>
-            </Link>
+            {host === 'true' ? (
+              <Link to='/postdraw'>
+                <Button variant='outline-primary' onClick={endSession}>
+                  end session
+                </Button>
+              </Link>
+            ):(<br/>)} 
+            
           </ButtonGroup>
         </span>
       </div>
