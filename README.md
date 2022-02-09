@@ -1,8 +1,7 @@
 GH CAPSTONE PROJECT: GOGH ON! 
  *
 Deployed link:
-https://artusts.herokuapp.com/
-*
+https://goghon.herokuapp.com/*
 
 Ataa Amanda Ellie Quynh
 
