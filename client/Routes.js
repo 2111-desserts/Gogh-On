@@ -9,12 +9,11 @@ import About from './components/About';
 import FreeDraw from './components/RoomModes/FreeDraw';
 import Error from './components/Error';
 
-import socket, {initSocket} from './socket';
-
+import socket, { initSocket } from './socket';
 
 class Routes extends Component {
   componentDidMount() {
-    initSocket(socket)
+    initSocket(socket);
   }
 
   render() {
@@ -28,7 +27,7 @@ class Routes extends Component {
           <Route path='/lobby' component={Lobby} />
           <Route path='/postdraw' component={PostDraw} />
           <Route path='/about' component={About} />
-          <Route path='/freeDraw' component ={FreeDraw} />
+          <Route path='/freeDraw' component={FreeDraw} />
           <Route path='/error' component={Error} />
         </Switch>
       </div>
@@ -36,4 +35,4 @@ class Routes extends Component {
   }
 }
 
-export default(Routes);
+export default Routes;

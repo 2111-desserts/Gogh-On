@@ -11,8 +11,7 @@ serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
 
   socket.on('join-room', (userObject) => {
-    const { roomId } = userObject
-    const users = socket.adapter.rooms.get(roomId)
+   const users = socket.adapter.rooms.get(roomId)
     const numUsers = users ? users.size : 0;
     if(numUsers < 4){
       socket.join(userObject.roomId);
@@ -22,8 +21,6 @@ serverSocket.on('connection', (socket) => {
     else{
       socket.emit('room-full')
     }
-    
-
   });
 
   socket.on('is-drawing', (data) => {
@@ -34,15 +31,15 @@ serverSocket.on('connection', (socket) => {
     socket.broadcast.to(room).emit('receive-message', message, sendingUser);
   });
 
-  socket.on('start-session', (roomId)=>{
-    console.log("starting session")
+  socket.on('start-session', (roomId) => {
+    console.log('starting session');
     console.log(roomId);
     socket.to(roomId).emit('begin-session');
-  })
-  socket.on('end-session',(roomId)=>{
+  });
+  socket.on('end-session', (roomId) => {
     socket.to(roomId).emit('ending-session');
 
     //make users 'leave' room
     //clear any info from that session, inlcuding players, content, room, etc.
-  })
+  });
 });
