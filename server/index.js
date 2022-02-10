@@ -11,7 +11,7 @@ serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
 
   socket.on('join-room', (userObject) => {
-  const { roomId } = userObject;
+   const { roomId } = userObject;
    const users = socket.adapter.rooms.get(roomId)
     const numUsers = users ? users.size : 0;
     if(numUsers < 4){
