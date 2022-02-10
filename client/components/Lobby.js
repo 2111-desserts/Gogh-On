@@ -24,16 +24,26 @@ class Lobby extends Component{
   constructor(){
     super()
     this.state ={
-      sound: false
+      sound: false,
+      players: []
     }
     this.handleClick = this.handleClick.bind(this)
     this.startSession = this.startSession.bind(this)
   }
 
   componentDidMount(){
-    socket.on('new-user', (roomId) =>{
-      console.log(`New user has joined room ${roomId}`)
+    socket.on('new-user', (player) =>{
+      console.log(`New user has joined room ${player.roomId}`)
+      this.setState({
+        players: [...this.state.players, player]
+      })
     })
+    socket.on('begin-session',()=>{
+      this.props.history.push(`/freeDraw/${this.state.roomId}`);
+      console.log("working")
+    })
+    
+
   }
 
   soundPlay(src){
@@ -61,34 +71,43 @@ class Lobby extends Component{
   startSession(){
     this.setState.sound = true;
     this.soundPlay(audioClip.sound);
+    const roomId = window.localStorage.getItem('roomId')
+    socket.emit('start-session', roomId);
+    this.props.history.push(`/freeDraw/${this.state.roomId}`);
+
   }
-
-
+  
   render(){
-    let users = dummyUsers;
-    let settings = dummySettings
-
+    const { players } = this.state
+    // let settings = dummySettings
+    const host = window.localStorage.getItem('host')
     return(
       <div id="lobby-room">
         <div className="logo">logo</div>
         <div className="users">
-          {users.map((user) => {
+          {players.map((player) => {
             return(
               <div>
-                <img src={user.avatar} width="200px" />
+                <img src={`https://avatars.dicebear.com/api/adventurer/${player.avatar}.svg`} width="200px" />
+                <p>{player.nickname}</p>
               </div>)
             })}
         </div>
 
-        <div className="draw-session-settings">{settings.map((setting) => {
+        {/* <div className="draw-session-settings">{settings.map((setting) => {
           return(<div>
             <img src={setting.image} width="200px" />
             <p>{setting.name}</p>
           </div>)
-        })}</div>
+        })}</div> */}
         <Chat />
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
-        <Link to="./freeDraw"><button type='button' onClick={() => this.startSession()}>Start Session</button></Link>
+        {host === 'true' ? (
+          <Link to="/freeDraw">
+            <button type='button' onClick={() => this.startSession()}>Start Session</button>
+          </Link>
+        ):(<br/>)} 
+        
       </div>
     )
   }

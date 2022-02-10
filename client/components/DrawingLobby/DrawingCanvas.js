@@ -4,8 +4,8 @@ import { CirclePicker } from 'react-color';
 import Eraser from '../../../public/icons/eraser.svg';
 import Pencil from '../../../public/icons/pencil.svg';
 import { Howl } from 'howler';
-import { Link } from 'react-router-dom';
-import { Container, ButtonGroup, Button } from 'react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
+import { Container, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
 import socket from '../../socket';
 
 // const audioClip = {
@@ -33,13 +33,23 @@ const DrawingCanvas = () => {
   const [lines, setLines] = useState([]);
   const [userLines, setUserLines] = useState({});
   const isDrawing = useRef(false);
+  // const stageRef = useRef(null);
+  const stageRef = React.createRef();
   // const soundBrushStroke = useRef(false);
   const [selectedColor, setColor] = useState('#f44336');
+  const history = useHistory();
 
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
     socket.on('is-drawing', (lines) => {
       setUserLines(lines);
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on('ending-session', () => {
+      getDataURI();
+      history.push('/PostDraw');
     });
   }, []);
 
@@ -95,7 +105,11 @@ const DrawingCanvas = () => {
     socket.emit('is-drawing', lines);
   };
 
-  var stageRef = useRef();
+  const endSession = () => {
+    const roomId = window.localStorage.getItem('roomId');
+    socket.emit('end-session', roomId);
+    getDataURI();
+  };
 
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
@@ -103,43 +117,23 @@ const DrawingCanvas = () => {
     localStorage.setItem('dataURI', uri);
   };
 
+  const host = window.localStorage.getItem('host');
   return (
-    <Container>
-      <div className='drawingLobby'>
-        <Stage
-          width={1600}
-          height={600}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          style={{ border: '1px solid black' }}
-          ref={stageRef}
-        >
-          {/*layer can have an id, clearBeforeDraw set  false to prevent canvas clear*/}
-          <Layer>
-            {lines.map((line, i) => (
-              <Line
-                key={i}
-                points={line.points}
-                stroke={line.strokeColor}
-                strokeWidth={5}
-                tension={0.5}
-                lineCap='round'
-                globalCompositeOperation={
-                  line.tool === 'eraser' ? 'destination-out' : 'source-over'
-                }
-              />
-            ))}
-          </Layer>
-        </Stage>
-        <span className='toolbox'>
+    <div height='700px'>
+      <Row style={{ margin: '10px' }}>
+        <Col>
           <CirclePicker
             color={selectedColor}
+            width='330px'
+            circleSpacing={11}
+            circleSize={25}
             onChange={(e) => {
               setColor(e.hex);
             }}
           />
-          <ButtonGroup vertical>
+        </Col>
+        <Col>
+          <ButtonGroup>
             <Button
               variant='outline-primary'
               type='button'
@@ -161,15 +155,48 @@ const DrawingCanvas = () => {
             >
               <Pencil />
             </Button>
-            <Link to='/postdraw'>
-              <Button variant='outline-primary' onClick={getDataURI}>
-                end session
-              </Button>
-            </Link>
+            {host === 'true' ? (
+              <Link to='/postdraw'>
+                <Button variant='warning' onClick={endSession}>
+                  end session
+                </Button>
+              </Link>
+            ) : (
+              <br />
+            )}
           </ButtonGroup>
-        </span>
-      </div>
-    </Container>
+        </Col>
+      </Row>
+      <Stage
+        width={760}
+        height={700}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        style={{
+          boxShadow:
+            '0px 0px 0px 5px rgba(255, 255, 255, 0.4), 0px 4px 20px rgba(0, 0, 0, 0.92)',
+        }}
+        ref={stageRef}
+      >
+        {/*layer can have an id, clearBeforeDraw set  false to prevent canvas clear*/}
+        <Layer>
+          {lines.map((line, i) => (
+            <Line
+              key={i}
+              points={line.points}
+              stroke={line.strokeColor}
+              strokeWidth={5}
+              tension={0.5}
+              lineCap='round'
+              globalCompositeOperation={
+                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+              }
+            />
+          ))}
+        </Layer>
+      </Stage>
+    </div>
   );
 };
 
