@@ -28,7 +28,7 @@ class PostDraw extends Component {
         <Row>
           <Col>
             <h2 style={{ textAlign: 'center' }}>Thanks for Drawing!</h2>
-            <img src={window.localStorage.dataURI} />
+            <img src={window.localStorage.dataURI} onContextMenu={(e) => e.preventDefault()}/>
           </Col>
         </Row>
         <Row>
