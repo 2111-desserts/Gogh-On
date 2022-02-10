@@ -35,9 +35,9 @@ class LandingPage extends Component {
         roomId: room,
       });
     }
-    socket.on('room-full', () =>{
-      this.props.history.push('/error')
-    })
+    socket.on('room-full', () => {
+      this.props.history.push('/error');
+    });
   }
 
   handleSubmit(evt) {
@@ -68,12 +68,9 @@ class LandingPage extends Component {
     const { avatarSeed } = this.state;
     const { handleSubmit, handleChange } = this;
     return (
-      <div>
-        <div className='logo'>
-          <h1>LOGO</h1>
-        </div>
-        <h3>Welcome to the Drawing Website!</h3>
+      <div className='homepage'>
         <Form onSubmit={handleSubmit}>
+          <h3>Welcome to Gogh On! 🎨🖌️</h3>
           <Form.Label>Nickname</Form.Label>
           <Form.Control
             type='text'

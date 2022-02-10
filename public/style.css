@@ -1,6 +1,9 @@
 @import 'lobby.css';
 @import 'chat-style.css';
 @import 'toolbox.css';
+@import 'landingPage.css';
+@import 'postDrawing.css';
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
 
 body {
   font-family: sans-serif;
@@ -10,39 +13,31 @@ body {
   text-decoration: none;
 } */
 
+h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2f3774;
+}
+
 label {
   display: block;
 }
 
-.btn.btn-outline-primary {
+/* .btn.btn-outline-primary {
   /* color: #842029; */
-  height: 40px;
-}
+/* height: 40px;
+} */
 
-.btn.btn-primary {
-  /* margin: 5px; */
-}
-
-.navbar.navbar-expand.navbar-dark.bg-primary {
+*/ .navbar.navbar-expand.navbar-dark {
   flex-wrap: nowrap;
   justify-content: space-between;
 }
 
-input.form-control {
-  width: 50%;
-}
-
-/* .main-form {
-  width: 30%;
-} */
-
-form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.homepage {
-  background-repeat: repeat;
-  background-image: url('/doodles.png');
+.navbar-dark .navbar-brand {
+  text-align: center;
+  font-family: 'Fredericka the Great';
+  background: -webkit-linear-gradient(#7ea4b0, #cdd27e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

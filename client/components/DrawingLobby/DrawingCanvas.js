@@ -31,7 +31,7 @@ const DrawingCanvas = () => {
   //states
   const [tool, setTool] = useState('pen');
   const [lines, setLines] = useState([]);
-  const [userLines, setUserLines] = useState({});
+  // const [userLines, setUserLines] = useState({});
   const isDrawing = useRef(false);
   // const stageRef = useRef(null);
   const stageRef = React.createRef();
@@ -42,7 +42,8 @@ const DrawingCanvas = () => {
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
     socket.on('is-drawing', (lines) => {
-      setUserLines(lines);
+      // setUserLines(lines);
+      setLines(lines);
     });
   }, []);
 
@@ -96,7 +97,7 @@ const DrawingCanvas = () => {
     //replace last
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
-    // socket.emit('is-drawing', lines);
+    socket.emit('is-drawing', lines);
   };
 
   //when user lets go of mouse click
@@ -120,7 +121,11 @@ const DrawingCanvas = () => {
   const host = window.localStorage.getItem('host');
   return (
     <div height='700px'>
-      <Row style={{ margin: '10px' }}>
+      <Row
+        style={{
+          margin: '10px',
+        }}
+      >
         <Col>
           <CirclePicker
             color={selectedColor}
@@ -132,7 +137,7 @@ const DrawingCanvas = () => {
             }}
           />
         </Col>
-        <Col>
+        <Col style={{ display: 'flex', justifyContent: 'space-between' }}>
           <ButtonGroup>
             <Button
               variant='outline-primary'
@@ -155,27 +160,28 @@ const DrawingCanvas = () => {
             >
               <Pencil />
             </Button>
-            {host === 'true' ? (
-              <Link to='/postdraw'>
-                <Button variant='warning' onClick={endSession}>
-                  end session
-                </Button>
-              </Link>
-            ) : (
-              <br />
-            )}
           </ButtonGroup>
+          {host === 'true' ? (
+            <Link to='/postdraw'>
+              <Button variant='warning' onClick={endSession}>
+                end session
+              </Button>
+            </Link>
+          ) : (
+            <br />
+          )}
         </Col>
       </Row>
       <Stage
-        width={760}
+        width={860}
         height={700}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         style={{
           boxShadow:
-            '0px 0px 0px 5px rgba(255, 255, 255, 0.4), 0px 4px 20px rgba(0, 0, 0, 0.92)',
+            '0px 0px 0px 0px rgba(255, 255, 255, 0.4), 0px 4px 20px rgba(0, 0, 0, 0.92)',
+          marginTop: '3%',
         }}
         ref={stageRef}
       >

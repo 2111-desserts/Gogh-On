@@ -1,0 +1,47 @@
+input.form-control {
+  width: 50%;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.homepage > form {
+  background-color: white;
+  width: 40%;
+  height: 45%;
+  border: 1px solid #2f3774;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.homepage {
+  background-repeat: repeat;
+  background-image: url('/doodles.png');
+  background-repeat: repeat;
+  background-size: 308px 300px;
+  height: 850px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  align-content: center;
+}
+
+.btn.btn-outline-primary {
+  /* color: #842029; */
+  height: 40px;
+}
+
+.btn.btn-primary {
+  margin: 5px;
+  color: #fff;
+  background-color: #2f3774;
+  border-color: #2f3774;
+}
+
+.btn.btn-primary:hover {
+  background-color: #4c6394;
+  border-color: #4c6394;
+}

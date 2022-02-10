@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 function downloadURI(uri, name) {
   var link = document.createElement('a');
@@ -12,29 +13,43 @@ function downloadURI(uri, name) {
 }
 
 class PostDraw extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  saveImage(){
+  saveImage() {
     const exportedURI = window.localStorage.dataURI;
-    downloadURI(exportedURI, 'another_test.png')
+    downloadURI(exportedURI, 'another_test.png');
   }
 
-  render(){
-    return(
-      <div id="post-draw-container">
-        <h2>Thanks for Drawing!</h2>
-        <div className="final-image">
-          <img src={window.localStorage.dataURI} />
-        </div>
-        <button onClick={this.saveImage}>okay i like it, picasso</button>
-        <Link to ='/'>
-          <button>Start a New Draw Session</button>
-        </Link>
-      </div>
-    )
+  render() {
+    return (
+      <Container className='post-draw'>
+        <Row>
+          <Col>
+            <h2 style={{ textAlign: 'center' }}>Thanks for Drawing!</h2>
+            <img src={window.localStorage.dataURI} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button onClick={this.saveImage}>okay i like it, picasso</Button>
+            <Link to='/'>
+              <Button
+                style={{
+                  background: '#cdd27e',
+                  borderColor: '#cdd27e',
+                  color: '#2f3774',
+                }}
+              >
+                Start a New Draw Session
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 }
 
-export default PostDraw
+export default PostDraw;
