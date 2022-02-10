@@ -1,7 +1,27 @@
-.users {
-  display: flex;
+
+#lobby-room > h2 {
+  padding: 200 200 10 200
 }
 
+#lobby-room{
+  /* display: flex; */
+  /* flex-direction: column; */
+  justify-content: center;
+  align-content: center;
+
+}
+
+.users {
+  display: flex;
+  margin: auto;
+  border: 2px solid black;
+  width: 1000px;
+}
+
+.lobby-chat > .Chat{
+  margin: auto
+}
 .draw-session-settings {
   display: flex;
 }
+

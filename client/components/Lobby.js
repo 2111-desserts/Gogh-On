@@ -42,7 +42,7 @@ class Lobby extends Component{
       this.props.history.push(`/freeDraw/${this.state.roomId}`);
       console.log("working")
     })
-    
+
 
   }
 
@@ -76,15 +76,18 @@ class Lobby extends Component{
     this.props.history.push(`/freeDraw/${this.state.roomId}`);
 
   }
-  
+
   render(){
     const { players } = this.state
     // let settings = dummySettings
     const host = window.localStorage.getItem('host')
+    console.log("this is my host ", host)
     return(
       <div id="lobby-room">
         <div className="logo">logo</div>
+        <h2>ellie's room</h2>
         <div className="users">
+
           {players.map((player) => {
             return(
               <div>
@@ -100,14 +103,16 @@ class Lobby extends Component{
             <p>{setting.name}</p>
           </div>)
         })}</div> */}
-        <Chat />
+        <div className="lobby-chat">
+          <Chat className="lobby-chat"/>
+        </div>
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
         {host === 'true' ? (
           <Link to="/freeDraw">
             <button type='button' onClick={() => this.startSession()}>Start Session</button>
           </Link>
-        ):(<br/>)} 
-        
+        ):(<br/>)}
+
       </div>
     )
   }
