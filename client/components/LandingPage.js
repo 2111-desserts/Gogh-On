@@ -35,6 +35,9 @@ class LandingPage extends Component {
         roomId: room,
       });
     }
+    socket.on('room-full', () =>{
+      this.props.history.push('/error')
+    })
   }
 
   handleSubmit(evt) {
