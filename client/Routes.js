@@ -25,10 +25,10 @@ class Routes extends Component {
           <Route path='/canvas' component={DrawingCanvas} />
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
-          <Route path='/postdraw' component={PostDraw} />
+          <Route path='/postDraw' component={PostDraw} />
           <Route path='/about' component={About} />
           <Route path='/freeDraw' component={FreeDraw} />
-          <Route path='/hotpotato' component={HotPotato} />
+          <Route path='/hotPotato' component={HotPotato} />
           <Route path='/error' component={Error} />
         </Switch>
       </div>
