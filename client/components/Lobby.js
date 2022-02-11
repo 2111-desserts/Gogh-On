@@ -39,7 +39,8 @@ class Lobby extends Component{
       })
     })
     socket.on('begin-session',()=>{
-      this.props.history.push(`/freeDraw/${this.state.roomId}`);
+      // this.props.history.push(`/freeDraw/${this.state.roomId}`);
+      this.props.history.push(`/timer/${this.state.roomId}`)
       console.log("working")
     })
 
@@ -73,7 +74,8 @@ class Lobby extends Component{
     this.soundPlay(audioClip.sound);
     const roomId = window.localStorage.getItem('roomId')
     socket.emit('start-session', roomId);
-    this.props.history.push(`/freeDraw/${this.state.roomId}`);
+    // this.props.history.push(`/freeDraw/${this.state.roomId}`);
+    this.props.history.push(`/timer/${this.state.roomId}`)
 
   }
 
@@ -104,11 +106,11 @@ class Lobby extends Component{
           </div>)
         })}</div> */}
         <div className="lobby-chat">
-          <Chat className="lobby-chat"/>
+          <Chat />
         </div>
         <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
         {host === 'true' ? (
-          <Link to="/freeDraw">
+          <Link to="/timer">
             <button type='button' onClick={() => this.startSession()}>Start Session</button>
           </Link>
         ):(<br/>)}

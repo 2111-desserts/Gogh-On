@@ -8,6 +8,7 @@ import Chat from './components/Chat/Chat';
 import About from './components/About';
 import FreeDraw from './components/RoomModes/FreeDraw';
 import Error from './components/Error';
+import Timer from './components/Timer';
 
 import socket, { initSocket } from './socket';
 
@@ -28,6 +29,7 @@ class Routes extends Component {
           <Route path='/postdraw' component={PostDraw} />
           <Route path='/about' component={About} />
           <Route path='/freeDraw' component={FreeDraw} />
+          <Route path='/timer' component={Timer} />
           <Route path='/error' component={Error} />
         </Switch>
       </div>

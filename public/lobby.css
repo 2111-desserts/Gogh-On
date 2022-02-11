@@ -15,11 +15,12 @@
   display: flex;
   margin: auto;
   border: 2px solid black;
-  width: 1000px;
+  width: 75%
 }
 
 .lobby-chat > .Chat{
-  margin: auto
+  margin: auto;
+  width: 800px
 }
 .draw-session-settings {
   display: flex;
