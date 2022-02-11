@@ -40,10 +40,10 @@ class Lobby extends Component{
     socket.on('new-user', (player) =>{
       console.log(`New user has joined room ${player.roomId}`)
       this.setState({
-        players: [...this.state.players, player]
-      })
-    })
-    socket.on('begin-session',()=>{
+        players: [...this.state.players, player],
+      });
+    });
+    socket.on('begin-session', () => {
       this.props.history.push(`/freeDraw/${this.state.roomId}`);
       console.log("working")
     })
@@ -69,7 +69,7 @@ class Lobby extends Component{
   startSession(){
     const roomId = window.localStorage.getItem('roomId')
     socket.emit('start-session', roomId);
-    this.props.history.push(`/freeDraw/${this.state.roomId}`);
+    this.props.history.push(`/freeDraw/${roomId}`);
   }
   
   render(){
@@ -84,8 +84,9 @@ class Lobby extends Component{
               <div key = {ind}>
                 <img src={`https://avatars.dicebear.com/api/adventurer/${player.avatar}.svg`} width="200px" />
                 <p>{player.nickname}</p>
-              </div>)
-            })}
+              </div>
+            );
+          })}
         </div>
 
         <div className="draw-session-settings">{gameMode.map((mode, ind) => {
@@ -96,15 +97,21 @@ class Lobby extends Component{
           </div>)
         })}</div>
         <Chat />
-        <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
+        <button
+          className='session-link'
+          type='button'
+          onClick={() => this.handleClick()}
+        >
+          Copy Invite Link
+        </button>
         {host === 'true' ? (
           <Link to={`/${selectedMode}`}>
             <button type='button' onClick={() => this.startSession()}>Start Session</button>
           </Link>
         ):(<br/>)} 
       </div>
-    )
+    );
   }
 }
 
-export default Lobby
+export default Lobby;

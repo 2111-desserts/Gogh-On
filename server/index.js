@@ -24,8 +24,8 @@ serverSocket.on('connection', (socket) => {
     }
   });
 
-  socket.on('is-drawing', (data) => {
-    socket.broadcast.emit('is-drawing', data);
+  socket.on('is-drawing', (data, room) => {
+    socket.broadcast.to(room).emit('is-drawing', data);
   });
 
   socket.on('send-message', (message, sendingUser, room) => {
