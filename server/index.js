@@ -43,4 +43,23 @@ serverSocket.on('connection', (socket) => {
     //make users 'leave' room
     //clear any info from that session, inlcuding players, content, room, etc.
   });
+  socket.on('load-users',(roomId)=>{
+    const rooms = Array.from(socket.adapter.rooms.get(roomId))
+    console.log(rooms);
+    let roomInfo = []
+    socket.emit('get-info');
+    socket.on('return-info',(userInfo)=>{
+      console.log(userInfo);
+      socket.emit('render-user', userInfo)
+    })
+    // for(let i = 0; i < rooms.length; i++){
+    //   let room = rooms[1]
+    //   console.log('attempting to get info from,',rooms[i])
+    //   socket.emit('get-info')
+    //   // socket.on('return-info',(userInfo)=>{
+    //   //   roomInfo.push(userInfo)
+    //   // })
+    // }
+    // //socket.to(roomId).emit('render-users',roomInfo);
+  })
 });
