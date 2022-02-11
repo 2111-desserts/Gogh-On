@@ -63,7 +63,6 @@ class Lobby extends Component{
     this.setState({
       selectedMode:mode
     })
-    console.log(this.state)
   }
 
   startSession(){
