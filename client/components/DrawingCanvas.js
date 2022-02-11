@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line } from 'react-konva';
 import { CirclePicker } from 'react-color';
-import Eraser from '../../../public/icons/eraser.svg';
-import Pencil from '../../../public/icons/pencil.svg';
+import Eraser from '../../public/icons/eraser.svg';
+import Pencil from '../../public/icons/pencil.svg';
 import { Howl } from 'howler';
 import { Link, useHistory } from 'react-router-dom';
 import { Container, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
-import socket from '../../socket';
+import socket from '../socket';
 
 // const audioClip = {
 //   soundBrushStroke:

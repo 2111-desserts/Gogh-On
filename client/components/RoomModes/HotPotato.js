@@ -3,20 +3,19 @@ import DrawingCanvas from '../DrawingCanvas';
 import Chat from '../Chat/Chat';
 import { Row, Col, Container } from 'react-bootstrap';
 
-class FreeDraw extends Component {
+class HotPotato extends Component {
   constructor() {
     super();
   }
+
   render() {
     return (
       <Container>
         <Row>
           <Col sm={8}>
-            {' '}
-            <DrawingCanvas />{' '}
+            <DrawingCanvas />
           </Col>
           <Col sm={4}>
-            {' '}
             <Chat />
           </Col>
         </Row>
@@ -25,4 +24,4 @@ class FreeDraw extends Component {
   }
 }
 
-export default FreeDraw;
+export default HotPotato;
