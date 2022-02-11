@@ -41,9 +41,9 @@ const DrawingCanvas = () => {
 
   //'COMPONENTDIDMOUNT'
   useEffect(() => {
-    socket.on('is-drawing', (lines) => {
+    socket.on('is-drawing', (lines, room) => {
       // setUserLines(lines);
-      setLines(lines);
+      setLines(lines, room);
     });
   }, []);
 
@@ -90,6 +90,7 @@ const DrawingCanvas = () => {
 
     const stage = e.target.getStage();
     const point = stage.getPointerPosition();
+    const room = window.localStorage.getItem('roomId');
     let lastLine = lines[lines.length - 1];
     //add point
     lastLine.points = lastLine.points.concat([point.x, point.y]);
@@ -97,13 +98,14 @@ const DrawingCanvas = () => {
     //replace last
     lines.splice(lines.length - 1, 1, lastLine);
     setLines(lines.concat());
-    socket.emit('is-drawing', lines);
+    socket.emit('is-drawing', lines, room);
   };
 
   //when user lets go of mouse click
   const handleMouseUp = () => {
     isDrawing.current = false;
-    socket.emit('is-drawing', lines);
+    const room = window.localStorage.getItem('roomId');
+    socket.emit('is-drawing', lines, room);
   };
 
   const endSession = () => {
