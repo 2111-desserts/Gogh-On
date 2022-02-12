@@ -29,9 +29,9 @@ label {
 /* height: 40px;
 } */
 
-*/ .navbar.navbar-expand.navbar-dark {
+.navbar.navbar-expand {
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .navbar-dark .navbar-brand {
@@ -40,4 +40,5 @@ label {
   background: -webkit-linear-gradient(#7ea4b0, #cdd27e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font: 50px;
 }
