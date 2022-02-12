@@ -5,22 +5,20 @@ const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
-
 const serverSocket = require('socket.io')(server);
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
 
   socket.on('join-room', (userObject) => {
-   const { roomId } = userObject;
-   const users = socket.adapter.rooms.get(roomId)
+    const { roomId } = userObject;
+    const users = socket.adapter.rooms.get(roomId);
     const numUsers = users ? users.size : 0;
-    if(numUsers < 4){
+    if (numUsers < 4) {
       socket.join(userObject.roomId);
       console.log(`successfully joined room `, roomId);
-      socket.broadcast.emit('new-user', userObject)
-    }
-    else{
-      socket.emit('room-full')
+      socket.broadcast.emit('new-user', userObject);
+    } else {
+      socket.emit('room-full');
     }
   });
 
@@ -43,15 +41,16 @@ serverSocket.on('connection', (socket) => {
     //make users 'leave' room
     //clear any info from that session, inlcuding players, content, room, etc.
   });
-  socket.on('load-users',(roomId)=>{
-    const rooms = Array.from(socket.adapter.rooms.get(roomId))
-    console.log(rooms);
-    let roomInfo = []
+  socket.on('load-users', (roomId) => {
+    // console.log('roomsocket.adapter.rooms.get(roomId))
+    // const rooms = Array.from(socket.adapter.rooms.get(roomId))
+
+    let roomInfo = [];
     socket.emit('get-info');
-    socket.on('return-info',(userInfo)=>{
+    socket.on('return-info', (userInfo) => {
       console.log(userInfo);
-      socket.emit('render-user', userInfo)
-    })
+      socket.emit('render-user', userInfo);
+    });
     // for(let i = 0; i < rooms.length; i++){
     //   let room = rooms[1]
     //   console.log('attempting to get info from,',rooms[i])
@@ -61,5 +60,5 @@ serverSocket.on('connection', (socket) => {
     //   // })
     // }
     // //socket.to(roomId).emit('render-users',roomInfo);
-  })
+  });
 });

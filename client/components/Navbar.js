@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 
 const NavigationBar = () => (
-  <Navbar style={{ backgroundColor: '#29251d' }} variant='dark'>
+  <Navbar style={{ backgroundColor: '#7ea4b0' }} variant='dark'>
     <Navbar.Brand href='/'>
       <img
         alt=''
