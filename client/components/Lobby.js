@@ -1,87 +1,78 @@
 import React, { Component } from "react";
-import {Howl} from 'howler';
 import Chat from './Chat/Chat'
 import { Link } from "react-router-dom";
 import socket from '../socket'
 
-const audioClip = {
-  sound: 'https://algorithmic-8ball.neocities.org/team_dessert/button_START.mp3'
-}
 
-
-const dummyUsers = [
-  {nickname: "ataa", avatar: "https://ih1.redbubble.net/image.399793925.2011/flat,128x,075,f-pad,128x128,f8f8f8.u4.jpg"},
-  {nickname: "ellie", avatar: "https://ih1.redbubble.net/image.399793925.2011/flat,128x,075,f-pad,128x128,f8f8f8.u4.jpg"},
-  {nickname: "amanda", avatar: "https://ih1.redbubble.net/image.399793925.2011/flat,128x,075,f-pad,128x128,f8f8f8.u4.jpg"},
-  {nickname: "quynh", avatar: "https://ih1.redbubble.net/image.399793925.2011/flat,128x,075,f-pad,128x128,f8f8f8.u4.jpg"},
-]
-
-const dummySettings = [
-  {name: "normal", image: "http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/artist-palette.png", description: "loren ipsum"},
-  {name: "timed", image: "http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/artist-palette.png", description: "loren ipsum"},
-]
 class Lobby extends Component{
   constructor(){
     super()
     this.state ={
-      sound: false,
-      players: []
+      players: [],
+      selectedMode:'freeDraw',
+      gameMode:
+      [
+        {name: "Free Draw", image: "/mode1.png", identity:"freeDraw", description: "loren ipsum"},
+        {name: "Hot Potato", image: "/mode2.png", identity:"hotPotato", description: "loren ipsum"},
+      ]
     }
     this.handleClick = this.handleClick.bind(this)
     this.startSession = this.startSession.bind(this)
+    this.selectMode = this.selectMode.bind(this)
   }
 
   componentDidMount(){
+    this.loadUsers();
+    socket.on('get-info',()=>{
+      console.log('getting the info')
+      let userInfo = {
+        nickname:window.localStorage.getItem('nickname'),
+        avatar:window.localStorage.getItem('avatar'),
+        host:window.localStorage.getItem('host')
+      }
+      socket.emit('return-info',userInfo);
+    })
+    socket.on('render-user',(playerInfo)=>{
+      this.setState({
+        players:[...this.state.players, playerInfo]
+      })
+    })
     socket.on('new-user', (player) =>{
       console.log(`New user has joined room ${player.roomId}`)
       this.setState({
-        players: [...this.state.players, player]
-      })
-    })
-    socket.on('begin-session',()=>{
-      // this.props.history.push(`/freeDraw/${this.state.roomId}`);
-      this.props.history.push(`/timer/${this.state.roomId}`)
+        players: [...this.state.players, player],
+      });
+    });
+    socket.on('begin-session', () => {
+      this.props.history.push(`/freeDraw/${this.state.roomId}`);
       console.log("working")
     })
-
-
   }
 
-  soundPlay(src){
-    const sound = new Howl({
-      src,
-      html5: true
-    })
-    sound.play();
+  loadUsers(){
+    const roomId = window.localStorage.getItem('roomId')
+    socket.emit('load-users',roomId);
   }
 
   handleClick(){
     const roomId = window.localStorage.getItem('roomId')
-    //ATM it's written to adjust to localhost site hosting rather than heroku
-    // navigator.clipboard.writeText("localhost:8080/?"+roomId)
     navigator.clipboard.writeText(`${window.location.host}/?`+roomId)
-    //for heroku:
-    // navigator.clipboard.writeText("artusts.herokuapp.com/?"+roomId)
+  }
 
-
-
-    this.setState.sound = true;
-    this.soundPlay(audioClip.sound);
+  selectMode(mode){
+    this.setState({
+      selectedMode:mode
+    })
   }
 
   startSession(){
-    this.setState.sound = true;
-    this.soundPlay(audioClip.sound);
     const roomId = window.localStorage.getItem('roomId')
     socket.emit('start-session', roomId);
-    // this.props.history.push(`/freeDraw/${this.state.roomId}`);
-    this.props.history.push(`/timer/${this.state.roomId}`)
-
+    this.props.history.push(`/freeDraw/${roomId}`);
   }
 
   render(){
-    const { players } = this.state
-    // let settings = dummySettings
+    const { players, gameMode, selectedMode } = this.state
     const host = window.localStorage.getItem('host')
     console.log("this is my host ", host)
     return(
@@ -89,35 +80,39 @@ class Lobby extends Component{
         <div className="logo">logo</div>
         <h2>ellie's room</h2>
         <div className="users">
-
-          {players.map((player) => {
+          {players.map((player, ind) => {
             return(
-              <div>
+              <div key = {ind}>
                 <img src={`https://avatars.dicebear.com/api/adventurer/${player.avatar}.svg`} width="200px" />
                 <p>{player.nickname}</p>
-              </div>)
-            })}
+              </div>
+            );
+          })}
         </div>
 
-        {/* <div className="draw-session-settings">{settings.map((setting) => {
-          return(<div>
-            <img src={setting.image} width="200px" />
-            <p>{setting.name}</p>
+        <div className="draw-session-settings">{gameMode.map((mode, ind) => {
+          return(
+          <div key={ind} onClick={()=>this.selectMode(mode.identity)}>
+            <img src={mode.image} width="200px" />
+            <p>{mode.name}</p>
           </div>)
-        })}</div> */}
-        <div className="lobby-chat">
-          <Chat />
-        </div>
-        <button className="session-link" type='button' onClick={() => this.handleClick()}>Copy Invite Link</button>
+        })}</div>
+        <Chat />
+        <button
+          className='session-link'
+          type='button'
+          onClick={() => this.handleClick()}
+        >
+          Copy Invite Link
+        </button>
         {host === 'true' ? (
-          <Link to="/timer">
+          <Link to={`/${selectedMode}`}>
             <button type='button' onClick={() => this.startSession()}>Start Session</button>
           </Link>
         ):(<br/>)}
-
       </div>
-    )
+    );
   }
 }
 
-export default Lobby
+export default Lobby;

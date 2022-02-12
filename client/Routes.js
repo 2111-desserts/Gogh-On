@@ -3,13 +3,14 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import PostDraw from './components/PostDraw';
 import Lobby from './components/Lobby';
 import LandingPage from './components/LandingPage';
-import DrawingCanvas from './components/DrawingLobby/DrawingCanvas';
+import DrawingCanvas from './components/DrawingCanvas';
 import Chat from './components/Chat/Chat';
 import About from './components/About';
 import FreeDraw from './components/RoomModes/FreeDraw';
 import Error from './components/Error';
 import Timer from './components/Timer';
 
+import HotPotato from './components/RoomModes/HotPotato';
 import socket, { initSocket } from './socket';
 
 class Routes extends Component {
@@ -26,10 +27,11 @@ class Routes extends Component {
           <Route path='/canvas' component={DrawingCanvas} />
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
-          <Route path='/postdraw' component={PostDraw} />
+          <Route path='/postDraw' component={PostDraw} />
           <Route path='/about' component={About} />
           <Route path='/freeDraw' component={FreeDraw} />
           <Route path='/timer' component={Timer} />
+          <Route path='/hotPotato' component={HotPotato} />
           <Route path='/error' component={Error} />
         </Switch>
       </div>

@@ -14,10 +14,7 @@ const NavigationBar = () => (
       Gogh On!
     </Navbar.Brand>
     <Nav>
-      <Nav.Link href='/'>Home</Nav.Link>
-      <Nav.Link href='/canvas'>Canvas</Nav.Link>
       <Nav.Link href='/about'>About Us</Nav.Link>
-      <Nav.Link href='/error'>Error Test</Nav.Link>
     </Nav>
   </Navbar>
 );
