@@ -8,7 +8,8 @@ export default class Timer extends Component {
     constructor(){
       super()
       this.state = {
-        time: {}
+        time: {},
+        seconds: 15
       }
     this.timer = 0;
     this.countingDown = false
@@ -35,7 +36,7 @@ export default class Timer extends Component {
 
   componentDidMount(){
       // let user = window.localStorage.getItem('avatar');
-      // socket.on('starting-timer', this.startTimer(user));
+      socket.on('starting-timer', this.startTimer());
 
     }
 
@@ -49,10 +50,12 @@ export default class Timer extends Component {
 
     startGame() {
       const roomId = window.localStorage.getItem('roomId')
-      socket.emit('starting-game', roomId)
+      const time = 15
+      socket.emit('starting-game', time, roomId)
     }
     countDown() {
       // Remove one second, set state so a re-render happens.
+      console.log(this.state.seconds, "seconds")
       let seconds = this.state.seconds - 1;
       this.setState({
         time: this.secondsToTime(seconds),
@@ -91,7 +94,7 @@ export default class Timer extends Component {
             START
           </Button>
 
-          <h2 className='points-word'> TIME LEFT: 15</h2>
+          <h2 className='points-word'> TIME LEFT: {this.state.seconds}</h2>
         </div>
 
 

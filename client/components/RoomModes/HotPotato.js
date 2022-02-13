@@ -14,6 +14,7 @@ class HotPotato extends Component {
       <Container>
         <Row>
           <Col sm={8}>
+            <Timer />
             <DrawingCanvas />
           </Col>
           <Col sm={4}>
