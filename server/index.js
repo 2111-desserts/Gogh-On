@@ -34,7 +34,14 @@ serverSocket.on('connection', (socket) => {
     socket.host = userObj.host;
   })
 
-  socket.on('load-users',async (roomId)=>{
+  socket.on('get-host', async (room)=>{
+    const users = Array.from(socket.adapter.rooms.get(room))
+    const userHost = await serverSocket.fetchSockets(users[0]);
+    const hostName= userHost[0].nickname;
+    socket.emit('set-host',hostName);
+  })
+
+  socket.on('load-users', async (roomId)=>{
     const users = await serverSocket.in(roomId).fetchSockets();
     let roomInfo = []
     for(const socket of users){

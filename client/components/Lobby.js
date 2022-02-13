@@ -10,6 +10,7 @@ class Lobby extends Component{
     this.state ={
       players: [],
       selectedMode:'freeDraw',
+      host:'',
       gameMode:
       [
         {name: "Free Draw", image: "/mode1.png", identity:"freeDraw", description: "loren ipsum"},
@@ -24,16 +25,22 @@ class Lobby extends Component{
 
   componentDidMount(){
     this.loadUsers();
+    const room = window.localStorage.getItem('roomId');
+    socket.emit('get-host',room);
     socket.on('render-users',(playerInfo)=>{
       this.setState({
         players:playerInfo
+      })
+    })
+    socket.on('set-host',(host)=>{
+      this.setState({
+        host:host
       })
     })
     socket.on('update-users', () =>{
       this.loadUsers();
     });
     socket.on('begin-session', (mode) => {
-      const room = window.localStorage.getItem('roomId');
       this.props.history.push(`/${mode}/${room}`);
     })
   }
@@ -61,9 +68,10 @@ class Lobby extends Component{
   }
   
   render(){
-    const { players, gameMode, selectedMode } = this.state
+    const { players, gameMode, selectedMode, host } = this.state
+    console.log("host is ", host);
     const room = window.localStorage.getItem('roomId');
-    const host = window.localStorage.getItem('host')
+    const isUserHost = window.localStorage.getItem('host')
     return(
       <div id="lobby-room">
         <div className="logo">logo</div>
@@ -93,7 +101,7 @@ class Lobby extends Component{
         >
           Copy Invite Link
         </button>
-        {host === 'true' ? (
+        {isUserHost === 'true' ? (
           <Link to={`/${selectedMode}/${room}`}>
             <button type='button' onClick={() => this.startSession()}>Start Session</button>
           </Link>
