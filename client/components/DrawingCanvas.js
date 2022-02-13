@@ -8,24 +8,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { Container, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
 import socket from '../socket';
 
-// const audioClip = {
-//   soundBrushStroke:
-//     'https://algorithmic-8ball.neocities.org/zapsplat_industrial_paint_brush_long_single_stroke_001_11977.mp3',
-// };
-
-/*let myLayerMap = {
-  //userlogs in, userid
-  //on login create a new later
-  myLayerMap[user.id] = new Konva.Layer();
-
-  //socket message comes in
-  socket.on(message => {
-    if (message.userID) {
-      let layer = myLayerMap[message.userId]
-      //update this layer
-    }
-  })
-}*/
 
 const DrawingCanvas = () => {
   //states
@@ -53,16 +35,6 @@ const DrawingCanvas = () => {
       history.push('/PostDraw');
     });
   }, []);
-
-  //sound: paintstroke
-  // const soundPlay = (src) => {
-  //   const soundBrushStroke = new Howl({
-  //     src,
-  //     html5: true,
-  //     volume: 0.02,
-  //   });
-  //   soundBrushStroke.play();
-  // };
 
   //mouse down event to start drawing
   const handleMouseDown = (e) => {

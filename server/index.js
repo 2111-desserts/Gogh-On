@@ -70,4 +70,9 @@ serverSocket.on('connection', (socket) => {
   socket.on('is-drawing', (data, room) => {
     socket.broadcast.to(room).emit('is-drawing', data);
   });
+
+  socket.on('is-DRAWER', (data, room, drawer) => {
+    socket.broadcast.to(room).emit('is-DRAWER', drawer);
+  })
+
 });
