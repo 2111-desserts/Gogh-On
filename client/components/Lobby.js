@@ -24,12 +24,7 @@ class Lobby extends Component{
 
   componentDidMount(){
     this.loadUsers();
-    // socket.on('disconnect', () =>{
-    //   const roomId = window.localStorage.getItem('roomId');
-    //   socket.emit('user-disconnect', roomId);
-    // })
     socket.on('render-users',(playerInfo)=>{
-      console.log('got the info')
       this.setState({
         players:playerInfo
       })
@@ -39,7 +34,6 @@ class Lobby extends Component{
     });
     socket.on('begin-session', () => {
       this.props.history.push(`/freeDraw/${this.state.roomId}`);
-      console.log("working")
     })
   }
 
@@ -68,7 +62,6 @@ class Lobby extends Component{
   render(){
     const { players, gameMode, selectedMode } = this.state
     const host = window.localStorage.getItem('host')
-    console.log(this.state)
     return(
       <div id="lobby-room">
         <div className="logo">logo</div>
