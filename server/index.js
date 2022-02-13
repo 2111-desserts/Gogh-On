@@ -1,5 +1,4 @@
 const PORT = process.env.PORT || 8080;
-const e = require('express');
 const app = require('./app');
 
 const server = app.listen(PORT, () => {
@@ -13,7 +12,6 @@ serverSocket.on('connection', (socket) => {
 
   socket.on('disconnecting',()=>{
     const room = Array.from(socket.rooms)
-    console.log(room[1]);
     socket.to(room[1]).emit('update-users');
   })
 
