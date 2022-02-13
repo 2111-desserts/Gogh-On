@@ -5,28 +5,50 @@ const server = app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
-
 const serverSocket = require('socket.io')(server);
+
 serverSocket.on('connection', (socket) => {
   console.log(`Connection from client ${socket.id}`);
 
-  socket.on('join-room', (userObject) => {
-   const { roomId } = userObject;
-   const users = socket.adapter.rooms.get(roomId)
+  socket.on('disconnecting',()=>{
+    const room = Array.from(socket.rooms)
+    socket.to(room[1]).emit('update-users');
+  })
+
+  socket.on('join-room', (roomId) => {
+    const users = socket.adapter.rooms.get(roomId)
     const numUsers = users ? users.size : 0;
     if(numUsers < 4){
-      socket.join(userObject.roomId);
+      socket.join(roomId);
       console.log(`successfully joined room `, roomId);
-      socket.broadcast.emit('new-user', userObject)
+      socket.to(roomId).emit('update-users')
     }
     else{
-      socket.emit('room-full')
+      socket.broadcast.emit('room-full')
     }
   });
 
-  socket.on('is-drawing', (data, room) => {
-    socket.broadcast.to(room).emit('is-drawing', data);
-  });
+  socket.on('set-info',(userObj)=>{
+    socket.nickname = userObj.nickname;
+    socket.avatar = userObj.avatar;
+    socket.host = userObj.host;
+  })
+
+  socket.on('load-users',async (roomId)=>{
+    const users = await serverSocket.in(roomId).fetchSockets();
+    let roomInfo = []
+    for(const socket of users){
+      const nickname = socket.nickname;
+      const avatar = socket.avatar;
+      const host = socket.host;
+      roomInfo.push({
+        nickname,
+        avatar,
+        host
+      })
+    }
+    socket.emit('render-users', roomInfo);
+  })
 
   socket.on('send-message', (message, sendingUser, room) => {
     socket.broadcast.to(room).emit('receive-message', message, sendingUser);
@@ -37,6 +59,7 @@ serverSocket.on('connection', (socket) => {
     console.log(roomId);
     socket.to(roomId).emit('begin-session');
   });
+
   socket.on('end-session', (roomId) => {
     socket.to(roomId).emit('ending-session');
 
@@ -67,4 +90,8 @@ serverSocket.on('connection', (socket) => {
     console.log("i've received the start game input from the back end! this is my roomId", roomId)
     socket.broadcast.to(roomId).emit('starting-timer', time)
   })
+
+  socket.on('is-drawing', (data, room) => {
+    socket.broadcast.to(room).emit('is-drawing', data);
+  });
 });

@@ -19,33 +19,21 @@ class Lobby extends Component{
     this.handleClick = this.handleClick.bind(this)
     this.startSession = this.startSession.bind(this)
     this.selectMode = this.selectMode.bind(this)
+    this.loadUsers = this.loadUsers.bind(this)
   }
 
   componentDidMount(){
     this.loadUsers();
-    socket.on('get-info',()=>{
-      console.log('getting the info')
-      let userInfo = {
-        nickname:window.localStorage.getItem('nickname'),
-        avatar:window.localStorage.getItem('avatar'),
-        host:window.localStorage.getItem('host')
-      }
-      socket.emit('return-info',userInfo);
-    })
-    socket.on('render-user',(playerInfo)=>{
+    socket.on('render-users',(playerInfo)=>{
       this.setState({
-        players:[...this.state.players, playerInfo]
+        players:playerInfo
       })
     })
-    socket.on('new-user', (player) =>{
-      console.log(`New user has joined room ${player.roomId}`)
-      this.setState({
-        players: [...this.state.players, player],
-      });
+    socket.on('update-users', () =>{
+      this.loadUsers();
     });
     socket.on('begin-session', () => {
       this.props.history.push(`/freeDraw/${this.state.roomId}`);
-      console.log("working")
     })
   }
 

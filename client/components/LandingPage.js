@@ -42,20 +42,18 @@ class LandingPage extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    this.state.socket.emit('join-room', {
+    socket.emit('set-info',{
       roomId: this.state.roomId,
       nickname: this.state.nickname,
       avatar: this.state.avatarSeed,
       host: this.state.host,
-    });
+    })
+    socket.emit('join-room', this.state.roomId); 
     window.localStorage.setItem('roomId', this.state.roomId);
     window.localStorage.setItem('avatar', this.state.avatarSeed);
     window.localStorage.setItem('nickname', this.state.nickname);
     window.localStorage.setItem('host', this.state.host);
-    // this.props.history.push('/lobby');
     this.props.history.push(`/lobby/${this.state.roomId}`);
-
-    // this.props.history.push('/chat');
   }
 
   handleChange(evt) {
