@@ -48,7 +48,6 @@ serverSocket.on('connection', (socket) => {
     let roomInfo = [];
     socket.emit('get-info');
     socket.on('return-info', (userInfo) => {
-      console.log(userInfo);
       socket.emit('render-user', userInfo);
     });
     // for(let i = 0; i < rooms.length; i++){

@@ -74,17 +74,21 @@ class Lobby extends Component {
     });
   }
 
-  startSession() {
+  startSession(mode) {
     const roomId = window.localStorage.getItem('roomId');
+    this.selectMode(mode);
+
     socket.emit('start-session', roomId);
-    this.props.history.push(`/freeDraw/${roomId}`);
+    this.props.history.push(`/${this.state.selectedMode}/${roomId}`);
   }
 
   render() {
-    const { players, gameMode, selectedMode } = this.state;
+    const { players, gameMode } = this.state;
     const host = window.localStorage.getItem('host');
+
     return (
       <Container>
+        {/*host's lobby title here */}
         <Row
           style={{
             flexWrap: 'nowrap',
@@ -119,26 +123,43 @@ class Lobby extends Component {
                 key={ind}
                 style={{
                   width: '18rem',
-                  height: '333px',
+                  height: '350px',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  margin: '5px',
                 }}
-                onClick={() => this.selectMode(mode.identity)}
               >
                 <Card.Img
                   variant='top'
                   src={mode.image}
-                  style={{ width: '180px' }}
+                  style={{ width: '190px' }}
                 />
                 <Card.Title>{mode.name}</Card.Title>
                 <Card.Text style={{ textAlign: 'center' }}>
                   {mode.description}
                 </Card.Text>
-                <Button variant='primary'>Start</Button>
+                {host === 'true' ? (
+                  <Link to={`/${mode.identity}`}>
+                    <Button
+                      type='submit'
+                      value={mode.identity}
+                      onClick={() => {
+                        this.startSession(mode.identity);
+                      }}
+                    >
+                      Start Mode
+                    </Button>
+                  </Link>
+                ) : (
+                  <br />
+                )}
               </Card>
             );
           })}
-          <Col md={{ span: 4, offset: 4 }} style={{ marginLeft: '10%' }}>
+          <Col
+            md={{ span: 4, offset: 4 }}
+            style={{ marginLeft: '10%', marginTop: '-19%' }}
+          >
             <Chat />
           </Col>
         </Row>
@@ -151,15 +172,6 @@ class Lobby extends Component {
             >
               Copy Invite Link
             </Button>
-            {host === 'true' ? (
-              <Link to={`/${selectedMode}`}>
-                <button type='button' onClick={() => this.startSession()}>
-                  Start Session
-                </button>
-              </Link>
-            ) : (
-              <br />
-            )}
           </Col>
         </Row>
       </Container>

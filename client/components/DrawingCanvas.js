@@ -116,7 +116,6 @@ const DrawingCanvas = () => {
 
   const getDataURI = () => {
     const uri = stageRef.current.toDataURL();
-    console.log('this is the data url ', uri);
     localStorage.setItem('dataURI', uri);
   };
 
