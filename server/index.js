@@ -54,10 +54,10 @@ serverSocket.on('connection', (socket) => {
     socket.broadcast.to(room).emit('receive-message', message, sendingUser);
   });
 
-  socket.on('start-session', (roomId) => {
+  socket.on('start-session', (roomId, mode) => {
     console.log('starting session');
     console.log(roomId);
-    socket.to(roomId).emit('begin-session');
+    socket.to(roomId).emit('begin-session', mode);
   });
 
   socket.on('end-session', (roomId) => {

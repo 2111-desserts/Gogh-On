@@ -32,8 +32,9 @@ class Lobby extends Component{
     socket.on('update-users', () =>{
       this.loadUsers();
     });
-    socket.on('begin-session', () => {
-      this.props.history.push(`/freeDraw/${this.state.roomId}`);
+    socket.on('begin-session', (mode) => {
+      const room = window.localStorage.getItem('roomId');
+      this.props.history.push(`/${mode}/${room}`);
     })
   }
 
@@ -55,12 +56,13 @@ class Lobby extends Component{
 
   startSession(){
     const roomId = window.localStorage.getItem('roomId')
-    socket.emit('start-session', roomId);
-    this.props.history.push(`/freeDraw/${roomId}`);
+    const mode = this.state.selectedMode;
+    socket.emit('start-session', roomId, mode);
   }
   
   render(){
     const { players, gameMode, selectedMode } = this.state
+    const room = window.localStorage.getItem('roomId');
     const host = window.localStorage.getItem('host')
     return(
       <div id="lobby-room">
@@ -92,7 +94,7 @@ class Lobby extends Component{
           Copy Invite Link
         </button>
         {host === 'true' ? (
-          <Link to={`/${selectedMode}`}>
+          <Link to={`/${selectedMode}/${room}`}>
             <button type='button' onClick={() => this.startSession()}>Start Session</button>
           </Link>
         ):(<br/>)} 
