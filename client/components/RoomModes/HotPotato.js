@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DrawingCanvas from '../DrawingCanvas';
 import Chat from '../Chat/Chat';
+import Timer from '../Timer';
 import { Row, Col, Container } from 'react-bootstrap';
 
 class HotPotato extends Component {

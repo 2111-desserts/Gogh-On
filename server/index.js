@@ -62,4 +62,9 @@ serverSocket.on('connection', (socket) => {
     // }
     // //socket.to(roomId).emit('render-users',roomInfo);
   })
+
+  socket.on('starting-game', (roomId) =>{
+    console.log("i've received the start game input from the back end! this is my roomId", roomId)
+    // socket.emit('starting-timer', user)
+  })
 });

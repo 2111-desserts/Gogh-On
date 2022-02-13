@@ -34,24 +34,29 @@ export default class Timer extends Component {
     }
 
   componentDidMount(){
-      socket.on('timer', this.startTimer());
+      // let user = window.localStorage.getItem('avatar');
+      // socket.on('starting-timer', this.startTimer(user));
+
     }
 
     startTimer() {
+      console.log("i am starting the timer this is the startTimer function");
       this.countingDown = true;
       if (this.countingDown) {
         this.timer = setInterval(this.countDown, 1000);
       }
     }
 
+    startGame() {
+      const roomId = window.localStorage.getItem('roomId')
+      socket.emit('starting-game', roomId)
+    }
     countDown() {
       // Remove one second, set state so a re-render happens.
       let seconds = this.state.seconds - 1;
-      let points = this.state.points -10;
       this.setState({
         time: this.secondsToTime(seconds),
         seconds: seconds,
-        points: points
       });
 
       if (seconds === 0) {
@@ -82,12 +87,14 @@ export default class Timer extends Component {
           style={{backgroundColor: "green"}}
           variant='contained'
           size='medium'
-          onClick={this.startTimer}>
+          onClick={this.startGame}>
             START
           </Button>
 
-          <h2 className='points-word'> TIME LEFT: 0</h2>
+          <h2 className='points-word'> TIME LEFT: 15</h2>
         </div>
+
+
       );
     }
 
