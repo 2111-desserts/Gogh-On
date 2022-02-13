@@ -66,16 +66,8 @@ export default class Timer extends Component {
         clearInterval(this.timer);
         this.timer = 0;
         this.countingDown = false;
-        this.setState({seconds: this.props.seconds, time: this.secondsToTime(this.props.seconds), points: 900});
-        // sending rotation to socket
-        // if(this.props.isDrawer){
-        //   this.setState({
-        //     visible: true
-        //   })
-        //   let rotNum = this.props.curRot
-        //   rotNum += 1
-        //   setTimeout(() => {socket.emit('rotation', rotNum, this.props.roomNum)}, 750);
-        // }
+        this.setState({seconds: 15, time: this.secondsToTime(15)});
+
       }
 
 
