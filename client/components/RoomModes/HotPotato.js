@@ -6,6 +6,9 @@ import { Row, Col, Container } from 'react-bootstrap';
 class HotPotato extends Component {
   constructor() {
     super();
+    this.state = {
+      
+    }
   }
 
   render() {
