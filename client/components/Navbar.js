@@ -14,8 +14,8 @@ const NavigationBar = () => (
       <img
         alt=''
         src='/van Gogh.png'
-        width='100px'
-        height='100px'
+        width='90px'
+        height='90px'
         className='d-inline-block align-top'
       />{' '}
       Gogh On!
