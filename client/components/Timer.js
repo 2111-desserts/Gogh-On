@@ -5,11 +5,11 @@ import { Button } from 'react-bootstrap'
 
 
 export default class Timer extends Component {
-    constructor(){
-      super()
+    constructor(props){
+      super(props)
       this.state = {
         time: {},
-        seconds: 15
+        seconds: this.props.seconds
       }
     this.timer = 0;
     this.countingDown = false
