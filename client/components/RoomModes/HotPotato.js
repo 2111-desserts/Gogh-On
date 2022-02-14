@@ -9,7 +9,6 @@ class HotPotato extends Component {
     super();
     this.state = {
       players: [],
-      
     }
   }
 
