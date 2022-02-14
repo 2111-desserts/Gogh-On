@@ -17,7 +17,9 @@ class HotPotato extends Component {
     const roomId = window.localStorage.getItem('roomId')
     console.log(roomId)
     // const allUsers = socket.emit('')
-  }
+
+    }
+
 
   render() {
     return (
