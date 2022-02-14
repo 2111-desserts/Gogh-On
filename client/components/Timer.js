@@ -77,14 +77,6 @@ export default class Timer extends Component {
 
       return(
         <div className='buttonContainer'>
-          <Button
-          color='secondary'
-          style={{backgroundColor: "green"}}
-          variant='contained'
-          size='medium'
-          onClick={this.startGame}>
-            START
-          </Button>
 
           <h2 className='points-word'> TIME LEFT: {this.state.seconds}</h2>
         </div>

@@ -15,7 +15,8 @@ class HotPotato extends Component {
 
   componentDidMount(){
     const roomId = window.localStorage.getItem('roomId')
-    console.log(roomId)
+    console.log("this is the room we are in", roomId)
+    console.log("this is our current state", this.state)
     // const allUsers = socket.emit('')
 
     }
