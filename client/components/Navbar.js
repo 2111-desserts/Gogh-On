@@ -3,10 +3,14 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 
 const NavigationBar = () => (
   <Navbar
-    style={{ backgroundColor: '#2f3774', flexDirection: 'column' }}
+    style={{
+      backgroundColor: '#2f3774',
+      flexDirection: 'column',
+      paddingBottom: '0',
+    }}
     variant='dark'
   >
-    <Navbar.Brand href='/' style={{ fontSize: '70px' }}>
+    <Navbar.Brand href='/' style={{ fontSize: '55px' }}>
       <img
         alt=''
         src='/van Gogh.png'
@@ -18,7 +22,7 @@ const NavigationBar = () => (
     </Navbar.Brand>
     <Nav>
       <br />
-      <Nav.Link href='/about'>About Us</Nav.Link>
+      <Nav.Link href='/'>Home</Nav.Link>
     </Nav>
   </Navbar>
 );

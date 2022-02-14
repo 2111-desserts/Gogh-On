@@ -42,13 +42,13 @@ class LandingPage extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault();
-    socket.emit('set-info',{
+    socket.emit('set-info', {
       roomId: this.state.roomId,
       nickname: this.state.nickname,
       avatar: this.state.avatarSeed,
       host: this.state.host,
-    })
-    socket.emit('join-room', this.state.roomId); 
+    });
+    socket.emit('join-room', this.state.roomId);
     window.localStorage.setItem('roomId', this.state.roomId);
     window.localStorage.setItem('avatar', this.state.avatarSeed);
     window.localStorage.setItem('nickname', this.state.nickname);
@@ -69,6 +69,9 @@ class LandingPage extends Component {
       <div className='homepage'>
         <Form onSubmit={handleSubmit}>
           <h3>Welcome to Gogh On! 🎨🖌️</h3>
+          <p>
+            <b>Create a piece of art with up to 4 friends on one canvas!</b>
+          </p>
           <Form.Label>Nickname</Form.Label>
           <Form.Control
             type='text'
