@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { uid } from 'uid';
 import socket from '../socket';
 import { Form, Button } from 'react-bootstrap';
+import Footer from './Footer';
+
 
 class LandingPage extends Component {
   constructor() {
@@ -96,6 +98,7 @@ class LandingPage extends Component {
             <Button type='submit'>Create Room</Button>
           )}
         </Form>
+        <Footer />
       </div>
     );
   }
