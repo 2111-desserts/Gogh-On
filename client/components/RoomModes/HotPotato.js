@@ -16,6 +16,7 @@ class HotPotato extends Component {
   }
 
   componentDidMount(){
+
     this.loadUsers();
     socket.on('render-users', (playerInfo)=>{
       this.setState({
@@ -28,12 +29,10 @@ class HotPotato extends Component {
     const roomId = window.localStorage.getItem('roomId')
     socket.emit('load-users',roomId);
   }
-    // const roomId = window.localStorage.getItem('roomId')
-    // console.log("this is the room we are in", roomId)
-    // console.log("this is our current state", this.state)
-    // // const allUsers = socket.emit('')
+ 
 
-    // }
+  
+
 
   render() {
     const { players } = this.state
