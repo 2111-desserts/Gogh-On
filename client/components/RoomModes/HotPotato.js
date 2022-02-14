@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DrawingCanvas from '../DrawingCanvas';
 import Chat from '../Chat/Chat';
+import Timer from '../Timer';
 import { Row, Col, Container } from 'react-bootstrap';
 import socket from '../../socket';
 
@@ -9,6 +10,8 @@ class HotPotato extends Component {
     super();
     this.state = {
       players: [],
+      seconds: 15,
+      rounds: 1,
     }
   }
 
@@ -25,7 +28,12 @@ class HotPotato extends Component {
     const roomId = window.localStorage.getItem('roomId')
     socket.emit('load-users',roomId);
   }
+    // const roomId = window.localStorage.getItem('roomId')
+    // console.log("this is the room we are in", roomId)
+    // console.log("this is our current state", this.state)
+    // // const allUsers = socket.emit('')
 
+    // }
 
   render() {
     const { players } = this.state
@@ -35,8 +43,8 @@ class HotPotato extends Component {
       <Container>
         <Row>
           <Col sm={8}>
-            {' '}
-            <DrawingCanvas />{' '}
+            <Timer seconds={this.state.seconds}/>
+            <DrawingCanvas />
           </Col>
           <Col sm={4}>
             {' '}

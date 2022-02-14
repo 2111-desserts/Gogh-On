@@ -8,6 +8,7 @@ import Chat from './components/Chat/Chat';
 import About from './components/About';
 import FreeDraw from './components/RoomModes/FreeDraw';
 import Error from './components/Error';
+
 import HotPotato from './components/RoomModes/HotPotato';
 import socket, { initSocket } from './socket';
 
