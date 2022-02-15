@@ -19,7 +19,7 @@ class PostDraw extends Component {
 
   saveImage() {
     const exportedURI = window.localStorage.dataURI;
-    downloadURI(exportedURI, 'another_test.png');
+    downloadURI(exportedURI, 'image.png');
   }
 
   render() {
