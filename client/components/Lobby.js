@@ -18,16 +18,16 @@ class Lobby extends Component {
           identity: 'freeDraw',
           description: 'Draw freely with friends on one canvas!',
         },
+        // {
+        //   name: 'Hot Potato',
+        //   image: '/mode2.png',
+        //   identity: 'hotPotato',
+        //   description: 'Each player gets 15 seconds to draw on the canvas!',
+        // },
         {
           name: 'Hot Potato',
           image: '/mode2.png',
           identity: 'hotPotato',
-          description: 'Each player gets 15 seconds to draw on the canvas!',
-        },
-        {
-          name: 'Hot Potato2',
-          image: '/mode2.png',
-          identity: 'hotPotato2',
           description: 'Each player gets 15 seconds to draw on the canvas!',
         },
       ],

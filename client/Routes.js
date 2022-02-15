@@ -9,7 +9,7 @@ import About from './components/About';
 import FreeDraw from './components/RoomModes/FreeDraw';
 import Error from './components/Error';
 
-import HotPotato from './components/RoomModes/HotPotato';
+// import HotPotato from './components/RoomModes/HotPotato';
 import HotPotato2 from './components/RoomModes/HotPotato2';
 import socket, { initSocket } from './socket';
 
@@ -30,8 +30,8 @@ class Routes extends Component {
           <Route path='/postDraw' component={PostDraw} />
           {/* <Route path='/about' component={About} /> */}
           <Route path='/freeDraw' component={FreeDraw} />
-          <Route path='/hotPotato' component={HotPotato} />
-          <Route path='/hotPotato2' component={HotPotato2} />
+          <Route path='/hotPotato' component={HotPotato2} />
+          {/* <Route path='/hotPotato2' component={HotPotato2} /> */}
           <Route path='/error' component={Error} />
         </Switch>
       </div>
