@@ -7,34 +7,42 @@ const Footer = () => {
         <a
           className='author'
           href='https://www.linkedin.com/in/ataa-amponsah/'
-        ></a>
+        >
         <img
           src='https://avatars.dicebear.com/api/adventurer/di.svg'
           width='90px'
         />
         <p>Ataa Amponsah </p>
-        <a className='author' href='https://www.linkedin.com/in/elliely32/'></a>
+        </a>
+        <a 
+        className='author' 
+        href='https://www.linkedin.com/in/elliely32/'>
         <img
           src='https://avatars.dicebear.com/api/adventurer/eul.svg'
           width='90px'
         />
         <p>Ellie Ly</p>
+        </a>
         <a
           className='author'
           href='https://www.linkedin.com/in/a-henneberry/'
-        ></a>
+        >
         <img
           src='https://avatars.dicebear.com/api/adventurer/2.svg'
           width='90px'
         />
         <p>Amanda Henneberry</p>
+        </a>
 
-        <a className='author' href='https://www.linkedin.com/in/quynh-l/'></a>
+        <a 
+        className='author' 
+        href='https://www.linkedin.com/in/quynh-l/'>
         <img
           src='https://avatars.dicebear.com/api/adventurer/pressesca.svg'
           width='90px'
         />
         <p>Quynh Le</p>
+        </a>
       </div>
       <div className='footer-right'>
         <a href='https://github.com/2111-desserts/capstone'>
