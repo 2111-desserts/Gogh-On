@@ -77,7 +77,7 @@ serverSocket.on('connection', (socket) => {
   });
 
   socket.on('is-DRAWER', (data, room, drawer) => {
-    socket.broadcast.to(room).emit('is-DRAWER', drawer);
+    socket.broadcast.to(room).emit('is-DRAWER', data, drawer);
   })
 
 });
