@@ -48,11 +48,7 @@ export default class Timer extends Component {
       }
     }
 
-    startGame() {
-      const roomId = window.localStorage.getItem('roomId')
-      const time = 15
-      socket.emit('starting-game', time, roomId)
-    }
+
     countDown() {
       // Remove one second, set state so a re-render happens.
       console.log(this.state.seconds, "seconds")
@@ -63,7 +59,7 @@ export default class Timer extends Component {
       });
 
       if (seconds === 0) {
-        clearInterval(this.timer);
+        // clearInterval(this.timer);
         this.timer = 0;
         this.countingDown = false;
         this.setState({seconds: 15, time: this.secondsToTime(15)});
