@@ -28,7 +28,7 @@ class Routes extends Component {
           <Route path='/chat' component={Chat} />
           <Route path='/lobby' component={Lobby} />
           <Route path='/postDraw' component={PostDraw} />
-          <Route path='/about' component={About} />
+          {/* <Route path='/about' component={About} /> */}
           <Route path='/freeDraw' component={FreeDraw} />
           <Route path='/hotPotato' component={HotPotato} />
           <Route path='/hotPotato2' component={HotPotato2} />
